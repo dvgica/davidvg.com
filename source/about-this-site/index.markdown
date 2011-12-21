@@ -15,7 +15,7 @@ Acknowledgements
 
  * [Brandon Mathis](http://brandonmathis.com/), for creating the blogging framework that powers this site!
  * The folks at Github for creating [Jekyll](https://github.com/mojombo/jekyll), on which Octopress is based
- * My ~~Girlfriend~~ ~~Fiance~~ Wife, for putting up with my excited technobabble during the making (and re-making) of this site :-)
+ * My ~~Girlfriend~~ ~~Fiancée~~ Wife, for putting up with my excited technobabble during the making (and re-making) of this site :-)
 
 Licensing
 ---------
