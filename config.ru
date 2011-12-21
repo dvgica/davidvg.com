@@ -6,12 +6,12 @@ $root = ::File.dirname(__FILE__)
 
 class SinatraStaticServer < Sinatra::Base  
 
+  get '/etcetera' do
+    redirect '/et-cetera', 301
+  end
+
   get(/.+/) do
     send_sinatra_file(request.path) {404}
-  end
-  
-  get '/etcetera' do
-    redirect '/et-cetera'
   end
 
   not_found do
