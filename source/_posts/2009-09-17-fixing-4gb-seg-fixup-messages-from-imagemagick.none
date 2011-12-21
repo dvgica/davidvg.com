@@ -1,0 +1,11 @@
+--- 
+layout: post
+title: Fixing "4gb seg fixup" messages from ImageMagick
+typo_id: 18
+---
+<p>
+	The last few days had me banging my head against the wall trying to fix a &quot;4gb seg fixup&quot; problem that was polluting logs and slowing down a web app I was working on. The project uses CentOS 5.2 running on a Xen hypervisor. It&#39;s a very common problem, and a quick Google search will turn up the same three solutions: use glibc-xen (libc6-xen for you .deb people), disable your tls libraries, and/or put &quot;hwcap 0 nosegneg&quot; in /etc/ld.so.conf.d/libc6-xen.conf.</p>
+<p>
+	That&#39;s all well and good, but those solutions didn&#39;t work. Much frustration was had until a co-worker got a &quot;message from God&quot; via Twitter, and solved the problem. The kicker here is that we were using a manually compiled build of ImageMagick for some graphics processing. Apparently, in this case the solution is to recompile ImageMagick without OpenMP support, and voila, the problem is solved.</p>
+<p>
+	Thanks to the <a href="http://twitter.com/rev_null/status/1776819174">Rev. Null</a> for the solution. Anybody wondering about the source of the 4gb seg fixup problem should check out this <a href="http://book.xen.prgmr.com/mediawiki/index.php/Troubleshooting#A_constant_stream_of_.224gb_seg_fixup.22_messages">link</a>.</p>

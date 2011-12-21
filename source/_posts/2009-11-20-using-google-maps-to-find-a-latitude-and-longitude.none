@@ -1,0 +1,19 @@
+--- 
+layout: post
+title: Using Google Maps to find a latitude and longitude
+typo_id: 15
+---
+<p>
+	I&#39;ve been working with the Google Maps API recently for another website I&#39;m working on, and I frequently find myself creating new GMarkers from a latitude and longitude pair. So far, the best way I&#39;ve found of getting a location&#39;s exact latitude and longitude is this:</p>
+<ul>
+	<li>
+		Go to <a href="http://maps.google.com">maps.google.com</a> and find the location</li>
+	<li>
+		Right click at your desired location on the map, and select &quot;Center map here&quot;</li>
+	<li>
+		In the top right hand corner of the map, click the &quot;Link&quot; link</li>
+	<li>
+		Copy-paste the resultant URL elsewhere. In the middle of the URL is a parameter similar to this: ll=42.963615,-85.664263, that&#39;s your latitude and longitude pair</li>
+</ul>
+<p>
+	Enjoy!</p>

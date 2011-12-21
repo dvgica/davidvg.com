@@ -1,0 +1,22 @@
+--- 
+layout: post
+title: Manually adding a VM to VMware Server inventory
+typo_id: 28
+---
+<p>
+	Yesterday I borked up my Ubuntu install trying to install Firefox 3.5. Fed up with the worsening bugs that were cropping up (dropping wifi, for example), I downloaded and installed <a href="http://www.linuxmint.com">Linux Mint 7</a>. So far I&#39;m very impressed.... but that&#39;s not the point of this post.<br />
+	<br />
+	I use VMware Server to run an Ubuntu web server, XP, and various other OSes. After installing Server 2.0.1 I added my existing VMs to the inventory; all went smoothly except with XP. Whenever I would add the .vmx config file, the web interface would hang. After googling and finding similar problems but no solutions, I started hacking around on my own, and found a solution.<br />
+	<br />
+	To manually add a VM to your inventory, simply:</p>
+<ul>
+	<li>
+		Open up your vmInventory.xml config file in your favourite text editor:<br />
+		sudo gedit /etc/vmware/hostd/vmInventory.xml</li>
+	<li>
+		Following the format of existing entries, add a new entry for your stubborn VM. Here&#39;s a link to a copy of mine for reference: <a href="http://60cycle.net/downloads/vmInventory.xml">vmInventory.xml</a></li>
+	<li>
+		Restart your VMware services. There&#39;s probably a better way, but restarting your box will definitely do the trick.</li>
+</ul>
+<p>
+	Hopefully this saves someone some frustration. Might post more about my Mint experience later.</p>

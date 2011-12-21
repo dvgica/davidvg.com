@@ -1,0 +1,12 @@
+--- 
+layout: post
+title: Excluding all attributes in options for to_json
+typo_id: 51
+---
+<p>Ran across a strange gotcha while working in Rails 3.0 today, having to do with the <code>:only</code> option to the <code>to_json</code> method.</p>
+
+<p>Let's say you have a Widget on which you call <code>to_json</code>.  You don't want <strong>any</strong> of the widget's attributes to appear in the JSON (maybe you only want some method results).  Normally, one would expect<br/><br/><code>{:only => [], :methods => [:foo, :bar]}</code><br/><br/>to do the trick.</p>
+
+<p>Strangely, this didn't work.  I found I needed to put a nil in the empty <code>:only</code> array, like so: <br/><br/><code>{:only => [nil], :methods => [:foo, :bar]}</code><br/><br/>for everything to work as expected.</p>
+
+<p>This might have something to do with the fact that I'm using the json gem, but I haven't had the time to dive into that.</p>

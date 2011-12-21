@@ -1,0 +1,21 @@
+--- 
+layout: post
+title: "WRT160N: DynDNS and upgrading firmware"
+typo_id: 17
+---
+<p>
+	Having noticed that my WRT160N router wasn&#39;t updating my DynDNS records regularly, I checked out the <a href="http://www.linksysbycisco.com/US/en/support/WRT160N/download">latest firmware releases</a> from Linksys. Turns out v3.0.02 fixes the problem, according to the <a href="http://downloads.linksysbycisco.com/downloads/WRT160Nv3-3002_003.txt">release notes</a>.</p>
+<p>
+	However I ran into some trouble uploading the firmware. The upload would get to 98%, hang for a minute or so, and then the page would give me a &quot;Firmware upgrade failed&quot; message. At that point the router web interface would crash and I would have to power cycle it. Anyway after monkeying around with it a bunch of times, I got it to work. Moral of the story, if your firmware upgrade is failing, you might try any and all of these things:</p>
+<ul>
+	<li>
+		If you&#39;re running Linux, try using Windows (I ended up using an XP virtual machine)</li>
+	<li>
+		Try IE instead of Firefox</li>
+	<li>
+		Use HTTP to access the router instead of HTTPS</li>
+	<li>
+		Curse the router repeatedly</li>
+</ul>
+<p>
+	I&#39;m still not sure which of those steps did the trick, but my money is on the last one :-). Hope that helps someone out there.</p>

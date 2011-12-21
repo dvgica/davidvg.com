@@ -1,0 +1,9 @@
+--- 
+layout: post
+title: 60cycleCMS demo live!
+typo_id: 20
+---
+<p>
+	For anyone interested in trying 60cycleCMS before installing it, there&#39;s now a full-featured demo installation available on <a href="http://php.opensourcecms.com/scripts/details.php?scriptid=337">OpenSourceCMS</a>. This does have the caveat that I do not control either the source code or the content of the demo, so if it&#39;s broken or someone insults your grandmother on it, it&#39;s not my fault.</p>
+<p>
+	So far though, I&#39;m very impressed with OpenSourceCMS. It seems like a great resource for both users and developers of CMSes.</p>

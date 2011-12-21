@@ -1,0 +1,9 @@
+--- 
+layout: post
+title: 60cycle.net gets a spiffy menu
+typo_id: 32
+---
+<p>
+	I just finished upgrading the left-hand menu to support expandable and collapsible sub-menus (click on &quot;Source&quot; to see it in action, you&#39;ll need Javascript enabled). The new menu uses jQuery and a customized version of this <a href="http://www.dynamicdrive.com/dynamicindex17/animatedcollapse.htm">DynamicDrive script</a>.</p>
+<p>
+	The motivation for this undertaking? The addition of a <a href="http://60cycle.net/source/phpScripts.php">PHP Scripts page</a> to the &quot;Source&quot; section (formerly &quot;Projects&quot;). So far in this section I&#39;ve added some handy scripts that I use to dynamically generate the version field and download links on the <a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS page</a>.</p>

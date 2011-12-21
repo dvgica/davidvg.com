@@ -1,0 +1,21 @@
+--- 
+layout: post
+title: 60cycleCMS 2.1.0
+typo_id: 22
+---
+<p>
+	Yep, another release :-). Since 2.0.0 I&#39;ve fixed a few security vulnerabilities and bugs, and now 2.1.0 brings a better installation script that Does More For You<sup>TM</sup>, including:</p>
+<ul>
+	<li>
+		Creating the database from scratch, if needed</li>
+	<li>
+		Automatically creating the .htaccess and .htpasswd files to protect the administrative area of the site, based on credentials chosen by the user</li>
+	<li>
+		Attempting to create the necessary MySQL credentials file</li>
+</ul>
+<p>
+	The Dashboard now includes links to change the username and password as well. I&#39;ve also set up a <a href="http://sourceforge.net/projects/sixtycyclecms/">SourceForge site</a> for the project, although there isn&#39;t terribly much on there for now.</p>
+<p>
+	Next on my TODO list is allowing visitors to leave comments.</p>
+<p>
+	Grab the latest zip from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a> or use <a href="http://svn.60cycle.net/60cycleCMS/">anonymous SVN access</a>. Enjoy!</p>

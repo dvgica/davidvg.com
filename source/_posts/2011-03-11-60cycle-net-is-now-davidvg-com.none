@@ -1,0 +1,13 @@
+--- 
+layout: post
+title: 60cycle.net is now davidvg.com!
+typo_id: 42
+---
+<p>
+	So, regular readers of this site (all two of them) may have noticed that 60cycle.net wasn&#39;t getting a whole lot of love lately. &nbsp;There&#39;s a couple reasons for that. &nbsp;Number one, Jo and I tied the knot back in June (huzzah!), and number two, I was busy working on davidvg.com.</p>
+<p>
+	Why a new site, you ask? &nbsp;Good question. &nbsp;I wrote 60cycle.net and 60cycleCMS back when I didn&#39;t know a whole lot about web development. &nbsp;It was cool to learn some PHP and MySQL, but it didn&#39;t teach me a lot about actual web development strategies (MVC patterns, for example). &nbsp;When my work compelled me to write a website, I jumped on the chance to learn Ruby on Rails, and I never looked back.</p>
+<p>
+	Having learned the Rails way of doing things, I felt pretty silly about 60cycleCMS. &nbsp;I toyed around with writing a new CMS in Rails, but, let&#39;s face it, why re-invent the wheel? &nbsp;Typo would do most of what I wanted. &nbsp;So, I installed Typo and started hacking. &nbsp;A few things annoyed me about Typo, and the iamrice theme, while being pretty darn awesome, wasn&#39;t exactly what I wanted.&nbsp;</p>
+<p>
+	davidvg.com is the result of my mods to Typo and iamrice. &nbsp;Now that I&#39;ve got the site running the way I like, hopefully the blog will see a little more action :-). &nbsp;Let me know if you find anything amiss!</p>

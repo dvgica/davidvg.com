@@ -1,0 +1,7 @@
+--- 
+layout: post
+title: 60cycleCMS available for download
+typo_id: 38
+---
+<p>
+	<a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS</a>, the simple Content Management System powering the front page of this site, is now available for download from my SVN repository or in .zip format. Some manual MySQL work is still required for setup, but that&#39;s next on my list of improvements. The source code is available under the <a href="http://en.wikipedia.org/wiki/BSD_license">BSD License</a>. Give me a shout if you find it useful!</p>

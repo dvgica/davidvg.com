@@ -1,0 +1,31 @@
+--- 
+layout: post
+title: 60cycleCMS 2.0.0 released
+typo_id: 24
+---
+<p>
+	I&#39;m pleased to announce the release of <a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS 2.0.0</a>, a major update to the open-source Content Management System powering this site.</p>
+<p>
+	New features and updates include:</p>
+<ul>
+	<li>
+		Use MySQL to store everything, don&#39;t put entries in XML files anymore (that was a dumb idea)</li>
+	<li>
+		New private &quot;Dashboard&quot; page, giving easy access to all site administration pages</li>
+	<li>
+		Ability to edit and delete entries using the Dashboard web interface</li>
+	<li>
+		Full support for HTML when publishing new entries</li>
+	<li>
+		Ability to preview and edit new entries before publishing them</li>
+	<li>
+		Time and timezone automatically detected when new entry is published</li>
+	<li>
+		New installation script to automatically create MySQL table for entries (you still need to create the DB yourself)</li>
+	<li>
+		Installation documentation</li>
+</ul>
+<p>
+	For anybody migrating from previous versions of 60cycleCMS, I&#39;ve also written a script to import your old XML-stored entries to the new DB system.</p>
+<p>
+	I&#39;ve been using 2.0.0 on this website for the last week or so, and so far I&#39;m a big fan :-). Hopefully you are too, but if you run into any problems, <a href="http://60cycle.net/contact.php">shoot me an email</a>.</p>

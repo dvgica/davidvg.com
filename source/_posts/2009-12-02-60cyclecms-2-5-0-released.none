@@ -1,0 +1,11 @@
+--- 
+layout: post
+title: 60cycleCMS 2.5.0 released!
+typo_id: 11
+---
+<p>
+	At long last I&#39;ve found some time to work on <a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS</a>, and version 2.5.0 is the result. A major change in 2.5.0 is the addition of a new visitor comment system. I&#39;ve integrated <a href="http://recaptcha.net">RECAPTCHA</a> and <a href="http://htmlpurifier.org">HTML Purifier</a> to thwart spammers and XSS, respectively. I&#39;ve also allowed for email notifications of new comments. Of course, the comment system is both optional and configurable, meaning you can enable or disable it and its features at will.</p>
+<p>
+	As always, you can see the latest version in action on this very website. I&#39;ve also notified the admins at <a href="http://php.opensourcecms.com/scripts/details.php?scriptid=337">opensourceCMS</a>, and hopefully a demo of the new version will be available soon.</p>
+<p>
+	Download the new version from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a> or <a href="http://sourceforge.net/projects/sixtycyclecms/">SourceForge</a>.</p>

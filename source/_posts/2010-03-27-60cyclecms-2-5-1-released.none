@@ -1,0 +1,13 @@
+--- 
+layout: post
+title: 60cycleCMS 2.5.1 released
+typo_id: 4
+---
+<p>
+	I know, two posts about 60cycleCMS in one day :-). Supporting the webmaster over at <a href="http://www.aegamestudios.com/blog.php">aegamestudios</a> while he was installing 60cycleCMS motivated me to put together another release.</p>
+<p>
+	60cycleCMS 2.5.1, ironically, considering my previous post, does address a potential security vulnerability. While previously I was using a somewhat lame white-list filter to filter input from the URL &quot;post&quot; parameter, I&#39;ve switched to using PHP&#39;s real_escape_string() from mysqli. While I&#39;m not sure of the exact method, I suspect my previous white-list filter could have been bypassed, and an attacker could have done some damage with SQL injection. Using real_escape_string() should completely mitigate this potential vulnerability.</p>
+<p>
+	This release also includes a custom negative CAPTCHA (in addition to ReCAPTCHA) to protect against spammers with a bunch of human CAPTCHA breakers from some disadvantaged country. Lastly it includes CSS stylesheet listing all the custom classes used by 60cycleCMS, for easier customization (thanks to Madison at aegamestudios.com for that suggestion).</p>
+<p>
+	As always, you can download the latest zip from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a>, or checkout the latest code from <a href="http://svn.60cycle.net/60cycleCMS">svn</a>.</p>

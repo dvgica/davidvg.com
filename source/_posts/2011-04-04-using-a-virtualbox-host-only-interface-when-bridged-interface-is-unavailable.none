@@ -1,0 +1,10 @@
+--- 
+layout: post
+title: Using a VirtualBox host-only interface when bridged interface is unavailable
+typo_id: 45
+---
+<p>On my current project, I use an Ubuntu Server virtual machine to run MySQL and Rails.  It makes it easy to keep my development environments for conflicting projects separate... my previous project used a different version of both MySQL and Rails.  For Ruby and Rails, this problem can be solved with <a href="http://rvm.beginrescueend.com/">RVM</a>, but that's another story.</p>
+
+<p>My Ubuntu VM has two network adapters, one bridged to eth0 on my host, and the second a host-only interface.  The idea here is that I still have network access to the VM when my wired connection on the host is down.  Imagine my suprise, however, when DHCP was failing on the host-only interface while the bridged network was down.  In theory, the host-only networking should work fine even if the host's bridged interface is physically disconnected (I'm using wireless instead of my normal wired connection, so there's nothing connected to my host's Ethernet port).</p>
+
+<p>After mucking about for a bit, I discovered the secret to host-only harmony.  I had to turn off the VM, then in VirtualBox go to Settings -> Network, select the tab for my bridged adapter, click Advanced, and un-check the "Cable Connected" box.  When I booted the VM again, the host-only adapter was able to DHCP an address on the host-only network, and I could be productive again :-).</p>

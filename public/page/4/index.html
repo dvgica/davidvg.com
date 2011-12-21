@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>davidvg.com</title>
+  <meta name="author" content="David van Geest">
+
+  
+  <meta name="description" content="Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://davidvg.com/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="davidvg.com" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">davidvg.com</a></h1>
+  
+    <h2>Needs Subtitle</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:davidvg.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/">Missing foreign key constraints in Rails test database</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-06T00:00:00-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential integrity constraints using execute calls in a migration. These database-implementation-specific statements cannot be included in the DB-independent schema.rb file, so when you run<code> rake test:db:prepare</code> (or it is called implicitly by <code>rake test:functionals</code>), your FK constraints are not included in the test database.</p>
+<p>
+	The workaround to this is simple. In your environment.rb file, add (or uncomment) a line as follows:</p>
+<p>
+	<code>config.active_record.schema_format = :sql</code></p>
+<p>
+	Now Rails will load the test DB structure from db/development_structure.rb, which should be automatically created when you run your tests. You can also create it manually using <code>rake db:structure:dump</code>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms/">Supposed security vulnerabilities in 60cycleCMS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-27T00:00:00-04:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	Googling 60cycleCMS these days brings up a few &quot;security vulnerabilities&quot; that, at first glance, are somewhat alarming. The first alleged vulnerability is generally described as an HTML injection or a persistent XSS (cross-site scripting) vulnerability. Here&#39;s a <a href="http://www.securityfocus.com/bid/38637/info">link</a> to a report (the reports tend to multiply across the web, so there are other sites describing the same exploit).</p>
+<p>
+	I&#39;m all for transparency and openness in coding, and I&#39;m glad people take time to expose vulnerabilities in others&#39; code. However, this XSS &quot;vulnerability&quot; really needs to be put in context.</p>
+<p>
+	The XSS exploit states that an attacker can insert malicious HTML or Javascript into an existing post using the &quot;Edit&quot; feature of 60cycleCMS because the user input is unvalidated. While the unvalidated input part of this exploit is true, it is intentional and, when the CMS is installed as intended, does not expose the website to attack. Let me elaborate somewhat. The user input is unvalidated to allow a website author to post any HTML content they want. When I write this post I don&#39;t want to fight my own HTML filters. Secondly, the page in question (private/select.php?act=edit) is a private page, if the exploit author had bothered to read the readme or install the CMS, he would have noticed that install process password protects that area of the site using an .htaccess file. Therefore, only the website author (presumably trusted&#8230;.) may post unfiltered HTML and/or Javascript on the site. If you were to un-protect the private admin section of the site, then this exploit would be possible, but then of course an attacker could do anything they wanted to, whether it be deleting your posts or changing your database configuration. Presumably my users are not stupid enough to leave themselves open this way.</p>
+<p>
+	The second supposed vulnerability is a remote file inclusion vulnerability. Here&#39;s a <a href="http://securityreason.com/wlb_show/WLB-2009120070">link</a>. Originally posted over at exploit-db.com, this exploit claimed that you could include a remote file in the PHP powering the CMS, thus allowing you to execute arbitrary code on the webserver. The &quot;exploit&quot; centered around overwriting the $_SERVER variable so that the CMS would load the config.php file from another location besides the usual (one level above website root). This vulnerability is just plain false. PHP does not allow a remote user to override the $_SERVER variable, for obvious reasons. There&#39;s an email thread discussing this in more detail <a href="http://attrition.org/pipermail/vim/2009-December/002302.html">here</a>. The exploit has been removed from ExploitDB (I can only assume because it is incorrect), but a few sites around the web still have it up.</p>
+<p>
+	The point is, don&#39;t believe everything you read on the web. It would seem there&#39;s people out there trying to make us think they&#39;re l33t hackers by exposing security vulnerabilities when, in reality, they don&#39;t do their homework and are sometimes just plain wrong. If you do have any concerns about the security of 60cycleCMS, please <a href="http://60cycle.net/contact.php">contact me</a> or leave a comment, and I will be happy to discuss your concerns.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/27/60cyclecms-2-5-1-released/">60cycleCMS 2.5.1 released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-27T00:00:00-04:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	I know, two posts about 60cycleCMS in one day :-). Supporting the webmaster over at <a href="http://www.aegamestudios.com/blog.php">aegamestudios</a> while he was installing 60cycleCMS motivated me to put together another release.</p>
+<p>
+	60cycleCMS 2.5.1, ironically, considering my previous post, does address a potential security vulnerability. While previously I was using a somewhat lame white-list filter to filter input from the URL &quot;post&quot; parameter, I&#39;ve switched to using PHP&#39;s real_escape_string() from mysqli. While I&#39;m not sure of the exact method, I suspect my previous white-list filter could have been bypassed, and an attacker could have done some damage with SQL injection. Using real_escape_string() should completely mitigate this potential vulnerability.</p>
+<p>
+	This release also includes a custom negative CAPTCHA (in addition to ReCAPTCHA) to protect against spammers with a bunch of human CAPTCHA breakers from some disadvantaged country. Lastly it includes CSS stylesheet listing all the custom classes used by 60cycleCMS, for easier customization (thanks to Madison at aegamestudios.com for that suggestion).</p>
+<p>
+	As always, you can download the latest zip from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a>, or checkout the latest code from <a href="http://svn.60cycle.net/60cycleCMS">svn</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/12/disabling-the-query-cache-and-profiling-mysql/">Disabling the query cache and profiling MySQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/04/04/using-a-virtualbox-host-only-interface-when-bridged-interface-is-unavailable/">Using a VirtualBox host-only interface when bridged interface is unavailable</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - David van Geest -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
