@@ -2,6 +2,7 @@
 layout: post
 title: 60cycleCMS 2.0.0 released
 typo_id: 24
+comments: true
 ---
 <p>
 	I&#39;m pleased to announce the release of <a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS 2.0.0</a>, a major update to the open-source Content Management System powering this site.</p>

@@ -2,6 +2,7 @@
 layout: post
 title: Disabling the query cache and profiling MySQL
 typo_id: 50
+comments: true
 ---
 <p>I'm constantly forgetting how to enable profiling and turn off query caching in MySQL.  So for my own benefit, and possibly yours, here's the goods.</p>
 

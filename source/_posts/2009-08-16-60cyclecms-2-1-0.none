@@ -2,6 +2,7 @@
 layout: post
 title: 60cycleCMS 2.1.0
 typo_id: 22
+comments: true
 ---
 <p>
 	Yep, another release :-). Since 2.0.0 I&#39;ve fixed a few security vulnerabilities and bugs, and now 2.1.0 brings a better installation script that Does More For You<sup>TM</sup>, including:</p>

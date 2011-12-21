@@ -2,6 +2,7 @@
 layout: post
 title: Excluding all attributes in options for to_json
 typo_id: 51
+comments: true
 ---
 <p>Ran across a strange gotcha while working in Rails 3.0 today, having to do with the <code>:only</code> option to the <code>to_json</code> method.</p>
 

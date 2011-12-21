@@ -2,6 +2,7 @@
 layout: post
 title: High CPU load on CentOS VirtualBox
 typo_id: 7
+comments: true
 ---
 <p>
 	A while ago I installed CentOS 5.4 in a VM running in VirtualBox. After installing the Guest Additions, and doing a few setup tasks, I noticed that the VM was almost pegging one core of my dual-core host CPU. The load would periodically drop to about 50%, but then return to 100%. Googling revealed the problem to be the CentOS kernel running at 1000 Hz. I didn&#39;t want to recompile the kernel, but providing an option to GRUB did the trick. Adding &quot;divider=10&quot; to the end of the kernel has been working beautifully. So your menu.lst entry for CentOS should read something like this:<br />

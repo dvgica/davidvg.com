@@ -2,6 +2,7 @@
 layout: post
 title: Hacking session maintenance with Authlogic and Factory Girl
 typo_id: 53
+comments: true
 ---
 <p>I use <a href="https://github.com/binarylogic/authlogic">Authlogic</a> to provide authentication for a couple Rails projects.  I also use <a href="https://github.com/thoughtbot/factory_girl">Factory Girl</a> as a fixtures replacement.</p>
 

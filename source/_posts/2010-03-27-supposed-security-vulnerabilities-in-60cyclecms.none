@@ -2,6 +2,7 @@
 layout: post
 title: Supposed security vulnerabilities in 60cycleCMS
 typo_id: 5
+comments: true
 ---
 <p>
 	Googling 60cycleCMS these days brings up a few &quot;security vulnerabilities&quot; that, at first glance, are somewhat alarming. The first alleged vulnerability is generally described as an HTML injection or a persistent XSS (cross-site scripting) vulnerability. Here&#39;s a <a href="http://www.securityfocus.com/bid/38637/info">link</a> to a report (the reports tend to multiply across the web, so there are other sites describing the same exploit).</p>

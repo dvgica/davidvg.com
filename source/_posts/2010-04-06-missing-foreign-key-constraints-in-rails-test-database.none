@@ -2,6 +2,7 @@
 layout: post
 title: Missing foreign key constraints in Rails test database
 typo_id: 3
+comments: true
 ---
 <p>
 	Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential integrity constraints using execute calls in a migration. These database-implementation-specific statements cannot be included in the DB-independent schema.rb file, so when you run<code> rake test:db:prepare</code> (or it is called implicitly by <code>rake test:functionals</code>), your FK constraints are not included in the test database.</p>

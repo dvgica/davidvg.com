@@ -2,6 +2,7 @@
 layout: post
 title: "WRT160N: DynDNS and upgrading firmware"
 typo_id: 17
+comments: true
 ---
 <p>
 	Having noticed that my WRT160N router wasn&#39;t updating my DynDNS records regularly, I checked out the <a href="http://www.linksysbycisco.com/US/en/support/WRT160N/download">latest firmware releases</a> from Linksys. Turns out v3.0.02 fixes the problem, according to the <a href="http://downloads.linksysbycisco.com/downloads/WRT160Nv3-3002_003.txt">release notes</a>.</p>

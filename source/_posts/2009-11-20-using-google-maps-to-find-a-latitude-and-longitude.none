@@ -2,6 +2,7 @@
 layout: post
 title: Using Google Maps to find a latitude and longitude
 typo_id: 15
+comments: true
 ---
 <p>
 	I&#39;ve been working with the Google Maps API recently for another website I&#39;m working on, and I frequently find myself creating new GMarkers from a latitude and longitude pair. So far, the best way I&#39;ve found of getting a location&#39;s exact latitude and longitude is this:</p>

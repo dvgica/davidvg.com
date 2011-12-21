@@ -2,6 +2,7 @@
 layout: post
 title: Installing the StarCraft 2 Demo on Linux Mint
 typo_id: 44
+comments: true
 ---
 <p>
 	I'm an infrequent gamer, but occasionally I get bored enough to fire something up, generally an RTS of some variety. Today was a rainy Sunday, so I figured I would give StarCraft II a try. I don't own the game, and didn't intend to buy it without trying it out on Linux, so I installed the demo using <a href="http://www.winehq.org/">Wine</a>.</p>

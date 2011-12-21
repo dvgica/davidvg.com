@@ -2,6 +2,7 @@
 layout: post
 title: 60cycle.net gets a spiffy menu
 typo_id: 32
+comments: true
 ---
 <p>
 	I just finished upgrading the left-hand menu to support expandable and collapsible sub-menus (click on &quot;Source&quot; to see it in action, you&#39;ll need Javascript enabled). The new menu uses jQuery and a customized version of this <a href="http://www.dynamicdrive.com/dynamicindex17/animatedcollapse.htm">DynamicDrive script</a>.</p>

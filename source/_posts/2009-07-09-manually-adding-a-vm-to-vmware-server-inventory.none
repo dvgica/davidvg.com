@@ -2,6 +2,7 @@
 layout: post
 title: Manually adding a VM to VMware Server inventory
 typo_id: 28
+comments: true
 ---
 <p>
 	Yesterday I borked up my Ubuntu install trying to install Firefox 3.5. Fed up with the worsening bugs that were cropping up (dropping wifi, for example), I downloaded and installed <a href="http://www.linuxmint.com">Linux Mint 7</a>. So far I&#39;m very impressed.... but that&#39;s not the point of this post.<br />

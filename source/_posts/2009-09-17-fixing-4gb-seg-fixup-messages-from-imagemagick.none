@@ -2,6 +2,7 @@
 layout: post
 title: Fixing "4gb seg fixup" messages from ImageMagick
 typo_id: 18
+comments: true
 ---
 <p>
 	The last few days had me banging my head against the wall trying to fix a &quot;4gb seg fixup&quot; problem that was polluting logs and slowing down a web app I was working on. The project uses CentOS 5.2 running on a Xen hypervisor. It&#39;s a very common problem, and a quick Google search will turn up the same three solutions: use glibc-xen (libc6-xen for you .deb people), disable your tls libraries, and/or put &quot;hwcap 0 nosegneg&quot; in /etc/ld.so.conf.d/libc6-xen.conf.</p>

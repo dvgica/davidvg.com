@@ -2,6 +2,7 @@
 layout: post
 title: Using a VirtualBox host-only interface when bridged interface is unavailable
 typo_id: 45
+comments: true
 ---
 <p>On my current project, I use an Ubuntu Server virtual machine to run MySQL and Rails.  It makes it easy to keep my development environments for conflicting projects separate... my previous project used a different version of both MySQL and Rails.  For Ruby and Rails, this problem can be solved with <a href="http://rvm.beginrescueend.com/">RVM</a>, but that's another story.</p>
 

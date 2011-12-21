@@ -88,6 +88,8 @@
 
 <time datetime="2011-12-07T00:00:00-05:00" pubdate data-updated="true">Dec 7<span>th</span>, 2011</time>
         
+         | <a href="/2011/12/07/converting-a-git-repo-to-svn/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -160,6 +162,8 @@ hgext.convert=
 
 <time datetime="2011-10-28T00:00:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2011</time>
         
+         | <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -207,6 +211,8 @@ hgext.convert=
 
 <time datetime="2011-10-18T00:00:00-04:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
         
+         | <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -228,7 +234,7 @@ hgext.convert=
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -263,8 +269,44 @@ hgext.convert=
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/dvangeest">@dvangeest</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dvangeest',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
 
 
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/117484722369052814445?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
 
 
 
@@ -280,6 +322,20 @@ hgext.convert=
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'davidvg';
+      var disqus_developer = 1;
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
