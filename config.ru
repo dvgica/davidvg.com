@@ -9,6 +9,10 @@ class SinatraStaticServer < Sinatra::Base
   get(/.+/) do
     send_sinatra_file(request.path) {404}
   end
+  
+  get '/etcetera' do
+    redirect '/et-cetera'
+  end
 
   not_found do
     send_sinatra_file('404.html') {"Sorry, I cannot find #{request.path}"}
