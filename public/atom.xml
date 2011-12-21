@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[davidvg.com]]></title>
+  <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2011-12-20T21:10:36-05:00</updated>
+  <updated>2011-12-20T21:30:16-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
