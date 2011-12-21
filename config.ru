@@ -10,6 +10,10 @@ class SinatraStaticServer < Sinatra::Base
     redirect '/et-cetera', 301
   end
 
+  get /aboutsite\/?/ do
+    redirect '/about-this-site', 301
+  end
+
   get(/.+/) do
     send_sinatra_file(request.path) {404}
   end
