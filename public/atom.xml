@@ -4,7 +4,7 @@
   <title><![CDATA[davidvg.com]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2011-12-20T20:53:50-05:00</updated>
+  <updated>2011-12-20T21:03:21-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -254,14 +254,6 @@ wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[about]]></title>
-    <link href="http://davidvg.com/2010/08/13/about/"/>
-    <updated>2010-08-13T00:00:00-04:00</updated>
-    <id>http://davidvg.com/2010/08/13/about</id>
-    <content type="html"><![CDATA[<p>This is an example of a Typo page. You can edit this to write information about yourself or your site so readers know who you are. You can create as many pages as this one as you like and manage all of your content inside Typo.</p>]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Missing foreign key constraints in Rails test database]]></title>
     <link href="http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/"/>
     <updated>2010-04-06T00:00:00-04:00</updated>
@@ -428,6 +420,20 @@ wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
 </ul>
 <p>
 	I&#39;m still not sure which of those steps did the trick, but my money is on the last one :-). Hope that helps someone out there.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fixing "4gb seg fixup" messages from ImageMagick]]></title>
+    <link href="http://davidvg.com/2009/09/17/fixing-4gb-seg-fixup-messages-from-imagemagick/"/>
+    <updated>2009-09-17T00:00:00-04:00</updated>
+    <id>http://davidvg.com/2009/09/17/fixing-4gb-seg-fixup-messages-from-imagemagick</id>
+    <content type="html"><![CDATA[<p>
+	The last few days had me banging my head against the wall trying to fix a &quot;4gb seg fixup&quot; problem that was polluting logs and slowing down a web app I was working on. The project uses CentOS 5.2 running on a Xen hypervisor. It&#39;s a very common problem, and a quick Google search will turn up the same three solutions: use glibc-xen (libc6-xen for you .deb people), disable your tls libraries, and/or put &quot;hwcap 0 nosegneg&quot; in /etc/ld.so.conf.d/libc6-xen.conf.</p>
+<p>
+	That&#39;s all well and good, but those solutions didn&#39;t work. Much frustration was had until a co-worker got a &quot;message from God&quot; via Twitter, and solved the problem. The kicker here is that we were using a manually compiled build of ImageMagick for some graphics processing. Apparently, in this case the solution is to recompile ImageMagick without OpenMP support, and voila, the problem is solved.</p>
+<p>
+	Thanks to the <a href="http://twitter.com/rev_null/status/1776819174">Rev. Null</a> for the solution. Anybody wondering about the source of the 4gb seg fixup problem should check out this <a href="http://book.xen.prgmr.com/mediawiki/index.php/Troubleshooting#A_constant_stream_of_.224gb_seg_fixup.22_messages">link</a>.</p>
 ]]></content>
   </entry>
   
