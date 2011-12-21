@@ -6,7 +6,7 @@ $root = ::File.dirname(__FILE__)
 
 class SinatraStaticServer < Sinatra::Base  
 
-  get '/etcetera' do
+  get /etcetera\/?/ do
     redirect '/et-cetera', 301
   end
 
