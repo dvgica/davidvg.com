@@ -4,7 +4,7 @@ title: "About this Site"
 footer: true
 sharing: false
 ---
-Welcome to my home on the web.  Here you can find my resume, and occasional notes about various tech subjects if I think others
+Welcome to my home on the web.  Here you can find occasional notes about various tech subjects if I think others
 might find my insights useful (or if I really just need to write it down somewhere so I don't forget).
 
 The site uses [Octopress](http://octopress.org/), a blogging framework for hackers.  Behind the scenes, its using some of my favourite tools, 
