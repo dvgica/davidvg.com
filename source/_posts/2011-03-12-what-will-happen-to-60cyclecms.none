@@ -4,9 +4,6 @@ title: What will happen to 60cycleCMS?
 typo_id: 43
 comments: true
 ---
-<p>
-	As a result of switching to Typo for davidvg.com, I will no longer be maintaining 60cycleCMS. Â However, it will still be available on SourceForge atÂ <a href="http://sourceforge.net/projects/sixtycyclecms/">http://sourceforge.net/projects/sixtycyclecms/</a>. Â If you really want to use, fork it, or whatever, go right ahead; the code is licensed under a BSD license.</p>
-<p>
-	Frankly, I wouldn't recommend using it for new websites. Â I wrote it when I didn't know too much about web development, and it's quite possible that it's vulnerable to a few hacks (see <a href="http://davidvg.com/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms">this post</a> for a discussion of some of them). Â So, consider yourself warned.</p>
-<p>
-	I, for one, welcome our new Typo overlords :-).</p>
+<p>As a result of switching to Typo for davidvg.com, I will no longer be maintaining 60cycleCMS. However, it will still be available on SourceForge at <a href="http://sourceforge.net/projects/sixtycyclecms/">http://sourceforge.net/projects/sixtycyclecms/</a>. If you really want to use, fork it, or whatever, go right ahead; the code is licensed under a BSD license.</p>
+<p>Frankly, I wouldn't recommend using it for new websites. I wrote it when I didn't know too much about web development, and it's quite possible that it's vulnerable to a few hacks (see <a href="http://davidvg.com/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms">this post</a> for a discussion of some of them). So, consider yourself warned.</p>
+<p>I, for one, welcome our new Typo overlords :-).</p>
