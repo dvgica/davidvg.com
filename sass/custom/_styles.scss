@@ -25,6 +25,11 @@ article[role="article"] header {
   padding-top: 0;
 }
 
+article.hentry[role="article"] header {
+  padding-top: 2em;
+}
+
+
 .centered {
   text-align: center;
 }
