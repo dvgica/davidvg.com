@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2012-01-26T15:47:15-05:00</updated>
+  <updated>2012-01-26T16:37:20-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[New city, new site!]]></title>
+    <link href="http://davidvg.com/2012/01/26/new-city-new-site/"/>
+    <updated>2012-01-26T15:55:00-05:00</updated>
+    <id>http://davidvg.com/2012/01/26/new-city-new-site</id>
+    <content type="html"><![CDATA[<p>So Jo and I moved to Toronto at the beginning of December, and things are going swimmingly.  I&#8217;m still working for
+<a href="http://www.spindance.com">Spindance</a>, but now from the comfort of our home study.</p>
+
+<p>Once things settled down a little, I got to work revamping davidvg.com.  Astute readers might note that I did the same thing last year,
+<a href="http://davidvg.com/2011/03/11/60cycle-net-is-now-davidvg-com/">moving from 60cycleCMS to Typo</a>, and ask why I&#8217;m changing it up again.</p>
+
+<p>One of the bigger problems was trying to host a full-blown Rails site on Dreamhost.  I like Dreamhost for the most part, but they&#8217;re really
+not set up for Rails sites.  I sporadically had random application crashes, and the site was really slow at times.  Installing the right gems
+was downright painful, although I imagine using Bundler would mitigate that considerably (I haven&#8217;t actually tried it).
+What I really wanted to do was move davidvg.com to <a href="http://www.heroku.com">Heroku</a>.  I had previously moved <a href="http://pvanreenen.com">pvanreenen.com</a>
+there (as well as porting it from PHP to Sinatra), and it was a very pleasent experience.</p>
+
+<p>Typo is good, but it was really starting to bug me.  It&#8217;s weighed down by a lot of legacy code (although they&#8217;re working on that),
+and I kept finding bugs that seemed to be un-squashable because of the huge and complex codebase.  There were some missing or non-functional features too,
+like decent syntax highlighting and a comments system that played well with others.  That said, I was using an older version,
+and I&#8217;m sure the newer versions are a lot better, but the thought of trying to upgrade Typo and merge my changes was making me ill.</p>
+
+<p>A little bit of Googling revealed <a href="http://octopress.org">Octopress</a>.  It&#8217;s a static site generator based on <a href="https://github.com/mojombo/jekyll">Jekyll</a> that uses a lot of my favourite tools,
+like Ruby and <a href="http://www.sinatrarb.com/">Sinatra</a>.  It had all the features I wanted, it was dead-easy to use, and it&#8217;s a great fit for Heroku.  I was hooked pretty quickly.</p>
+
+<p>So, welcome to the new Heroku-hosted, Octopress-baked version of davidvg.com.  Do let me know if you see any rough edges!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Converting a Git repo to SVN]]></title>
@@ -420,20 +449,6 @@ wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
 </ul>
 <p>
 	I&#39;m still not sure which of those steps did the trick, but my money is on the last one :-). Hope that helps someone out there.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Fixing "4gb seg fixup" messages from ImageMagick]]></title>
-    <link href="http://davidvg.com/2009/09/17/fixing-4gb-seg-fixup-messages-from-imagemagick/"/>
-    <updated>2009-09-17T00:00:00-04:00</updated>
-    <id>http://davidvg.com/2009/09/17/fixing-4gb-seg-fixup-messages-from-imagemagick</id>
-    <content type="html"><![CDATA[<p>
-	The last few days had me banging my head against the wall trying to fix a &quot;4gb seg fixup&quot; problem that was polluting logs and slowing down a web app I was working on. The project uses CentOS 5.2 running on a Xen hypervisor. It&#39;s a very common problem, and a quick Google search will turn up the same three solutions: use glibc-xen (libc6-xen for you .deb people), disable your tls libraries, and/or put &quot;hwcap 0 nosegneg&quot; in /etc/ld.so.conf.d/libc6-xen.conf.</p>
-<p>
-	That&#39;s all well and good, but those solutions didn&#39;t work. Much frustration was had until a co-worker got a &quot;message from God&quot; via Twitter, and solved the problem. The kicker here is that we were using a manually compiled build of ImageMagick for some graphics processing. Apparently, in this case the solution is to recompile ImageMagick without OpenMP support, and voila, the problem is solved.</p>
-<p>
-	Thanks to the <a href="http://twitter.com/rev_null/status/1776819174">Rev. Null</a> for the solution. Anybody wondering about the source of the 4gb seg fixup problem should check out this <a href="http://book.xen.prgmr.com/mediawiki/index.php/Troubleshooting#A_constant_stream_of_.224gb_seg_fixup.22_messages">link</a>.</p>
 ]]></content>
   </entry>
   

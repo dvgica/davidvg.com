@@ -9,7 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="Googling 60cycleCMS these days brings up a few &quot;security vulnerabilities&quot; that, at first glance, are somewhat alarming. The first alleged &hellip;">
+  <meta name="description" content="Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/">Missing foreign key constraints in Rails test database</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-06T00:00:00-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2010</time>
+        
+         | <a href="/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential integrity constraints using execute calls in a migration. These database-implementation-specific statements cannot be included in the DB-independent schema.rb file, so when you run<code> rake test:db:prepare</code> (or it is called implicitly by <code>rake test:functionals</code>), your FK constraints are not included in the test database.</p>
+<p>
+	The workaround to this is simple. In your environment.rb file, add (or uncomment) a line as follows:</p>
+<p>
+	<code>config.active_record.schema_format = :sql</code></p>
+<p>
+	Now Rails will load the test DB structure from db/development_structure.rb, which should be automatically created when you run your tests. You can also create it manually using <code>rake db:structure:dump</code>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -168,45 +213,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/18/60cyclecms-on-aegamestudios-com/">60cycleCMS on aegamestudios.com</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-18T00:00:00-04:00" pubdate data-updated="true">Mar 18<span>th</span>, 2010</time>
-        
-         | <a href="/2010/03/18/60cyclecms-on-aegamestudios-com/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	The webmaster over at <a href="http://www.aegamestudios.com/blog.php">aegamestudios.com</a> recently started using 60cycleCMS to power the blog portion of his site. The site looks great and is a good example of the flexibility and simplicity provided by 60cycleCMS. Check it out!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/5/">&larr; Older</a>
@@ -224,6 +230,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/01/26/new-city-new-site/">New city, new site!</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
       </li>
     
@@ -237,10 +247,6 @@
     
       <li class="post">
         <a href="/2011/10/12/disabling-the-query-cache-and-profiling-mysql/">Disabling the query cache and profiling MySQL</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/04/using-a-virtualbox-host-only-interface-when-bridged-interface-is-unavailable/">Using a VirtualBox host-only interface when bridged interface is unavailable</a>
       </li>
     
   </ul>

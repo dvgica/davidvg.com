@@ -9,7 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I know, usually people go the other way. This is a bit of special case though: a contractor had a project in git which we needed to import on our SVN &hellip;">
+  <meta name="description" content="So Jo and I moved to Toronto at the beginning of December, and things are going swimmingly. I&#8217;m still working for
+Spindance, but now from the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/01/26/new-city-new-site/">New city, new site!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-26T15:55:00-05:00" pubdate data-updated="true">Jan 26<span>th</span>, 2012</time>
+        
+         | <a href="/2012/01/26/new-city-new-site/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So Jo and I moved to Toronto at the beginning of December, and things are going swimmingly.  I&#8217;m still working for
+<a href="http://www.spindance.com">Spindance</a>, but now from the comfort of our home study.</p>
+
+<p>Once things settled down a little, I got to work revamping davidvg.com.  Astute readers might note that I did the same thing last year,
+<a href="http://davidvg.com/2011/03/11/60cycle-net-is-now-davidvg-com/">moving from 60cycleCMS to Typo</a>, and ask why I&#8217;m changing it up again.</p>
+
+<p>One of the bigger problems was trying to host a full-blown Rails site on Dreamhost.  I like Dreamhost for the most part, but they&#8217;re really
+not set up for Rails sites.  I sporadically had random application crashes, and the site was really slow at times.  Installing the right gems
+was downright painful, although I imagine using Bundler would mitigate that considerably (I haven&#8217;t actually tried it).
+What I really wanted to do was move davidvg.com to <a href="http://www.heroku.com">Heroku</a>.  I had previously moved <a href="http://pvanreenen.com">pvanreenen.com</a>
+there (as well as porting it from PHP to Sinatra), and it was a very pleasent experience.</p>
+
+<p>Typo is good, but it was really starting to bug me.  It&#8217;s weighed down by a lot of legacy code (although they&#8217;re working on that),
+and I kept finding bugs that seemed to be un-squashable because of the huge and complex codebase.  There were some missing or non-functional features too,
+like decent syntax highlighting and a comments system that played well with others.  That said, I was using an older version,
+and I&#8217;m sure the newer versions are a lot better, but the thought of trying to upgrade Typo and merge my changes was making me ill.</p>
+
+<p>A little bit of Googling revealed <a href="http://octopress.org">Octopress</a>.  It&#8217;s a static site generator based on <a href="https://github.com/mojombo/jekyll">Jekyll</a> that uses a lot of my favourite tools,
+like Ruby and <a href="http://www.sinatrarb.com/">Sinatra</a>.  It had all the features I wanted, it was dead-easy to use, and it&#8217;s a great fit for Heroku.  I was hooked pretty quickly.</p>
+
+<p>So, welcome to the new Heroku-hosted, Octopress-baked version of davidvg.com.  Do let me know if you see any rough edges!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -199,50 +258,6 @@ hgext.convert=
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-18T00:00:00-04:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
-        
-         | <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ran across a strange gotcha while working in Rails 3.0 today, having to do with the <code>:only</code> option to the <code>to_json</code> method.</p>
-
-<p>Let&#8217;s say you have a Widget on which you call <code>to_json</code>.  You don&#8217;t want <strong>any</strong> of the widget&#8217;s attributes to appear in the JSON (maybe you only want some method results).  Normally, one would expect<br/><br/><code>{:only => [], :methods => [:foo, :bar]}</code><br/><br/>to do the trick.</p>
-
-<p>Strangely, this didn&#8217;t work.  I found I needed to put a nil in the empty <code>:only</code> array, like so: <br/><br/><code>{:only => [nil], :methods => [:foo, :bar]}</code><br/><br/>for everything to work as expected.</p>
-
-<p>This might have something to do with the fact that I&#8217;m using the json gem, but I haven&#8217;t had the time to dive into that.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/2/">&larr; Older</a>
@@ -258,6 +273,10 @@ hgext.convert=
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/01/26/new-city-new-site/">New city, new site!</a>
+      </li>
+    
+      <li class="post">
         <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
       </li>
     
@@ -271,10 +290,6 @@ hgext.convert=
     
       <li class="post">
         <a href="/2011/10/12/disabling-the-query-cache-and-profiling-mysql/">Disabling the query cache and profiling MySQL</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/04/04/using-a-virtualbox-host-only-interface-when-bridged-interface-is-unavailable/">Using a VirtualBox host-only interface when bridged interface is unavailable</a>
       </li>
     
   </ul>
