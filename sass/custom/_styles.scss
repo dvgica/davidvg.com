@@ -12,3 +12,21 @@ div.archive-link {
     color: #AAA;
   }
 }
+
+a.no-underline {
+  text-decoration: none;
+}
+
+aside.sidebar a.no-wrap {
+  white-space: normal;
+}
+
+article[role="article"] header {
+  padding-top: 0;
+}
+
+.centered {
+  text-align: center;
+}
+
+
