@@ -9,7 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential &hellip;">
+  <meta name="description" content="So, regular readers of this site (all two of them) may have noticed that 60cycle.net wasn&#39;t getting a whole lot of love lately. &nbsp;There&#39; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/03/11/60cycle-net-is-now-davidvg-com/">60cycle.net is now davidvg.com!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-11T00:00:00-05:00" pubdate data-updated="true">Mar 11<span>th</span>, 2011</time>
+        
+         | <a href="/2011/03/11/60cycle-net-is-now-davidvg-com/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	So, regular readers of this site (all two of them) may have noticed that 60cycle.net wasn&#39;t getting a whole lot of love lately. &nbsp;There&#39;s a couple reasons for that. &nbsp;Number one, Jo and I tied the knot back in June (huzzah!), and number two, I was busy working on davidvg.com.</p>
+<p>
+	Why a new site, you ask? &nbsp;Good question. &nbsp;I wrote 60cycle.net and 60cycleCMS back when I didn&#39;t know a whole lot about web development. &nbsp;It was cool to learn some PHP and MySQL, but it didn&#39;t teach me a lot about actual web development strategies (MVC patterns, for example). &nbsp;When my work compelled me to write a website, I jumped on the chance to learn Ruby on Rails, and I never looked back.</p>
+<p>
+	Having learned the Rails way of doing things, I felt pretty silly about 60cycleCMS. &nbsp;I toyed around with writing a new CMS in Rails, but, let&#39;s face it, why re-invent the wheel? &nbsp;Typo would do most of what I wanted. &nbsp;So, I installed Typo and started hacking. &nbsp;A few things annoyed me about Typo, and the iamrice theme, while being pretty darn awesome, wasn&#39;t exactly what I wanted.&nbsp;</p>
+<p>
+	davidvg.com is the result of my mods to Typo and iamrice. &nbsp;Now that I&#39;ve got the site running the way I like, hopefully the blog will see a little more action :-). &nbsp;Let me know if you find anything amiss!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -168,51 +213,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/27/60cyclecms-2-5-1-released/">60cycleCMS 2.5.1 released</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-27T00:00:00-04:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
-        
-         | <a href="/2010/03/27/60cyclecms-2-5-1-released/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	I know, two posts about 60cycleCMS in one day :-). Supporting the webmaster over at <a href="http://www.aegamestudios.com/blog.php">aegamestudios</a> while he was installing 60cycleCMS motivated me to put together another release.</p>
-<p>
-	60cycleCMS 2.5.1, ironically, considering my previous post, does address a potential security vulnerability. While previously I was using a somewhat lame white-list filter to filter input from the URL &quot;post&quot; parameter, I&#39;ve switched to using PHP&#39;s real_escape_string() from mysqli. While I&#39;m not sure of the exact method, I suspect my previous white-list filter could have been bypassed, and an attacker could have done some damage with SQL injection. Using real_escape_string() should completely mitigate this potential vulnerability.</p>
-<p>
-	This release also includes a custom negative CAPTCHA (in addition to ReCAPTCHA) to protect against spammers with a bunch of human CAPTCHA breakers from some disadvantaged country. Lastly it includes CSS stylesheet listing all the custom classes used by 60cycleCMS, for easier customization (thanks to Madison at aegamestudios.com for that suggestion).</p>
-<p>
-	As always, you can download the latest zip from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a>, or checkout the latest code from <a href="http://svn.60cycle.net/60cycleCMS">svn</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/5/">&larr; Older</a>
@@ -230,6 +230,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/03/07/reviewing-your-github-ssh-key/">Reviewing your GitHub SSH key</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/01/26/new-city-new-site/">New city, new site!</a>
       </li>
     
@@ -243,10 +247,6 @@
     
       <li class="post">
         <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/12/disabling-the-query-cache-and-profiling-mysql/">Disabling the query cache and profiling MySQL</a>
       </li>
     
   </ul>

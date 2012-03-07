@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2012-01-26T16:48:32-05:00</updated>
+  <updated>2012-03-07T13:45:54-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Reviewing your GitHub SSH key]]></title>
+    <link href="http://davidvg.com/2012/03/07/reviewing-your-github-ssh-key/"/>
+    <updated>2012-03-07T13:26:00-05:00</updated>
+    <id>http://davidvg.com/2012/03/07/reviewing-your-github-ssh-key</id>
+    <content type="html"><![CDATA[<p>Those of you living in a cave may not have heard that someone recently
+hacked GitHub to prove a point about default Rails mass-assignment settings.
+You can read all the gory details <a href="https://github.com/blog/1068-public-key-security-vulnerability-and-mitigation">here</a>
+and <a href="https://github.com/blog/1069-responsible-disclosure-policy">here</a>.</p>
+
+<p>At any rate, GitHub sent an email notifying everyone that they are performing
+an SSH key audit, and included a link to the audit page.</p>
+
+<p>The page shows the SSH key&#8217;s fingerprint, but neglects to explain what it is
+or how to check the fingerprint on your own system.  Here&#8217;s what you need to do:</p>
+
+<ul>
+<li>Locate your private or public SSH key, it&#8217;s likely at ~/.ssh/id_rsa(.pub)</li>
+<li>Run this command (or similar, depending on your system) to get the key fingerprint, replacing id_rsa.pub with the location of your public or private key:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> ssh-keygen -lf id_rsa.pub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>If the printed key fingerprint matches the fingerprint on GitHub, you&#8217;re good!  If not&#8230; follow their instructions and hope for the best :-P.</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[New city, new site!]]></title>
@@ -422,30 +456,6 @@ wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
 </ul>
 <p>
 	Enjoy!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[WRT160N: DynDNS and upgrading firmware]]></title>
-    <link href="http://davidvg.com/2009/10/04/wrt160n-dyndns-and-upgrading-firmware/"/>
-    <updated>2009-10-04T00:00:00-04:00</updated>
-    <id>http://davidvg.com/2009/10/04/wrt160n-dyndns-and-upgrading-firmware</id>
-    <content type="html"><![CDATA[<p>
-	Having noticed that my WRT160N router wasn&#39;t updating my DynDNS records regularly, I checked out the <a href="http://www.linksysbycisco.com/US/en/support/WRT160N/download">latest firmware releases</a> from Linksys. Turns out v3.0.02 fixes the problem, according to the <a href="http://downloads.linksysbycisco.com/downloads/WRT160Nv3-3002_003.txt">release notes</a>.</p>
-<p>
-	However I ran into some trouble uploading the firmware. The upload would get to 98%, hang for a minute or so, and then the page would give me a &quot;Firmware upgrade failed&quot; message. At that point the router web interface would crash and I would have to power cycle it. Anyway after monkeying around with it a bunch of times, I got it to work. Moral of the story, if your firmware upgrade is failing, you might try any and all of these things:</p>
-<ul>
-	<li>
-		If you&#39;re running Linux, try using Windows (I ended up using an XP virtual machine)</li>
-	<li>
-		Try IE instead of Firefox</li>
-	<li>
-		Use HTTP to access the router instead of HTTPS</li>
-	<li>
-		Curse the router repeatedly</li>
-</ul>
-<p>
-	I&#39;m still not sure which of those steps did the trick, but my money is on the last one :-). Hope that helps someone out there.</p>
 ]]></content>
   </entry>
   
