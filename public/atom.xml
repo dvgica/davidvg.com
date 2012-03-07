@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2012-03-07T13:53:13-05:00</updated>
+  <updated>2012-03-07T14:24:09-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -30,8 +30,8 @@ an SSH key audit, and included a link to the audit page.</p>
 or how to check the fingerprint on your own system.  Here&#8217;s what you need to do:</p>
 
 <ul>
-<li>Locate your private or public SSH key, it&#8217;s likely at ~/.ssh/id_rsa(.pub)</li>
-<li>Run this command (or similar, depending on your system) to get the key fingerprint, replacing id_rsa.pub with the location of your public or private key:</li>
+<li>Locate your public SSH key, it&#8217;s likely at ~/.ssh/id_rsa.pub</li>
+<li>Run this command (or similar, depending on your system) to get the key fingerprint, replacing id_rsa.pub with the location of your public key:</li>
 </ul>
 
 
