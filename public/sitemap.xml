@@ -96,7 +96,7 @@
         <loc>
             http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/
         </loc>
-        <lastmod>2011-12-20T21:05:49-05:00</lastmod>
+        <lastmod>2012-03-12T12:47:23-04:00</lastmod>
     </url>
     <url>
         <loc>http://davidvg.com/2011/03/11/60cycle-net-is-now-davidvg-com/</loc>
@@ -108,7 +108,7 @@
     </url>
     <url>
         <loc>http://davidvg.com/2011/03/20/installing-the-starcraft-2-demo-on-linux-mint/</loc>
-        <lastmod>2011-12-20T21:05:49-05:00</lastmod>
+        <lastmod>2012-03-12T12:37:16-04:00</lastmod>
     </url>
     <url>
         <loc>
@@ -118,21 +118,21 @@
     </url>
     <url>
         <loc>http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql/</loc>
-        <lastmod>2011-12-20T21:05:49-05:00</lastmod>
+        <lastmod>2012-03-12T12:16:03-04:00</lastmod>
     </url>
     <url>
         <loc>http://davidvg.com/2011/10/18/excluding-all-attributes-in-options-for-to_json/</loc>
-        <lastmod>2011-12-20T21:05:49-05:00</lastmod>
+        <lastmod>2012-03-12T12:05:33-04:00</lastmod>
     </url>
     <url>
         <loc>
             http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/
         </loc>
-        <lastmod>2011-12-20T21:05:49-05:00</lastmod>
+        <lastmod>2012-03-12T11:56:48-04:00</lastmod>
     </url>
     <url>
         <loc>http://davidvg.com/2011/12/07/converting-a-git-repo-to-svn/</loc>
-        <lastmod>2011-12-20T21:05:37-05:00</lastmod>
+        <lastmod>2012-03-12T11:53:12-04:00</lastmod>
     </url>
     <url>
         <loc>http://davidvg.com/2012/01/26/new-city-new-site/</loc>
@@ -152,7 +152,7 @@
     </url>
     <url>
         <loc>http://davidvg.com/blog/archives/</loc>
-        <lastmod>2012-03-07T14:23:11-05:00</lastmod>
+        <lastmod>2012-03-12T12:47:23-04:00</lastmod>
     </url>
     <url>
         <loc>http://davidvg.com/et-cetera/</loc>
@@ -160,6 +160,6 @@
     </url>
     <url>
         <loc>http://davidvg.com/</loc>
-        <lastmod>2012-03-07T14:23:11-05:00</lastmod>
+        <lastmod>2012-03-12T12:47:23-04:00</lastmod>
     </url>
 </urlset>

@@ -9,7 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I&#8217;m constantly forgetting how to enable profiling and turn off query caching in MySQL. So for my own benefit, and possibly yours, here&#8217;s &hellip;">
+  <meta name="description" content="I&#8217;m constantly forgetting how to enable profiling and turn off query
+caching in MySQL. So for my own benefit, and possibly yours, here&#8217;s &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,47 +104,91 @@
   </header>
 
 
-<div class="entry-content"><p>I&#8217;m constantly forgetting how to enable profiling and turn off query caching in MySQL.  So for my own benefit, and possibly yours, here&#8217;s the goods.</p>
+<div class="entry-content"><p>I&#8217;m constantly forgetting how to enable profiling and turn off query
+caching in MySQL.  So for my own benefit, and possibly yours, here&#8217;s the
+goods.</p>
 
-<p>Turn off the query cache for your particular connection:<br/>
-<code>SET SESSION query_cache_type = OFF;</code></p>
+<p>Turn off the query cache for your particular connection:</p>
 
-<p>Enable profiling for your connection:<br/>
-<code>SET profiling=1;</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SET</span> <span class="k">SESSION</span> <span class="n">query_cache_type</span> <span class="o">=</span> <span class="k">OFF</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Run the query:<br/>
-<code>SELECT * FROM widgets WHERE plant_id = 5 ORDER BY widget_id DESC LIMIT 1;</code></p>
 
-<p>Show the profile:<br/>
-<code>SHOW profile;</code></p>
+<p>Enable profiling for your connection:</p>
 
-<p>You&#8217;ll get something like this:<br/>
-<code>
-+----------------------+----------+<br/>
-| Status               | Duration |<br/>
-+----------------------+----------+<br/>
-| starting             | 0.000087 |<br/>
-| checking permissions | 0.000013 |<br/>
-| Opening tables       | 0.000106 |<br/>
-| System lock          | 0.000099 |<br/>
-| init                 | 0.000036 |<br/>
-| optimizing           | 0.000019 |<br/>
-| statistics           | 0.000311 |<br/>
-| preparing            | 0.000027 |<br/>
-| executing            | 0.000006 |<br/>
-| Sorting result       | 0.000006 |<br/>
-| Sending data         | 0.001665 |<br/>
-| end                  | 0.000011 |<br/>
-| query end            | 0.000008 |<br/>
-| closing tables       | 0.000023 |<br/>
-| freeing items        | 0.000034 |<br/>
-| logging slow query   | 0.000005 |<br/>
-| cleaning up          | 0.000006 |<br/>
-+----------------------+----------+<br/>
-17 rows in set (0.00 sec)<br/>
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SET</span> <span class="n">profiling</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Remember that the time in the right column actually corresponds to to the operation in the row ABOVE.  So in this case, the operation that took 0.001665 seconds was the &#8220;Sorting result&#8221; operation, not the &#8220;Sending data&#8221; operation.</p>
+
+<p>Run the query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">widgets</span> <span class="k">WHERE</span> <span class="n">plant_id</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">widget_id</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Show the profile:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SHOW</span> <span class="n">profile</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&#8217;ll get something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>+----------------------+----------+
+</span><span class='line'>| Status               | Duration |
+</span><span class='line'>+----------------------+----------+
+</span><span class='line'>| starting             | 0.000087 |
+</span><span class='line'>| checking permissions | 0.000013 |
+</span><span class='line'>| Opening tables       | 0.000106 |
+</span><span class='line'>| System lock          | 0.000099 |
+</span><span class='line'>| init                 | 0.000036 |
+</span><span class='line'>| optimizing           | 0.000019 |
+</span><span class='line'>| statistics           | 0.000311 |
+</span><span class='line'>| preparing            | 0.000027 |
+</span><span class='line'>| executing            | 0.000006 |
+</span><span class='line'>| Sorting result       | 0.000006 |
+</span><span class='line'>| Sending data         | 0.001665 |
+</span><span class='line'>| end                  | 0.000011 |
+</span><span class='line'>| query end            | 0.000008 |
+</span><span class='line'>| closing tables       | 0.000023 |
+</span><span class='line'>| freeing items        | 0.000034 |
+</span><span class='line'>| logging slow query   | 0.000005 |
+</span><span class='line'>| cleaning up          | 0.000006 |
+</span><span class='line'>+----------------------+----------+
+</span><span class='line'>17 rows in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Remember that the time in the right column actually corresponds to to
+the operation in the row ABOVE.  So in this case, the operation that
+took 0.001665 seconds was the <code>Sorting result</code> operation, not the
+<code>Sending data</code> operation.</p>
 </div>
 
 

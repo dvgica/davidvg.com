@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2012-03-07T14:24:09-05:00</updated>
+  <updated>2012-03-12T12:47:24-04:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -81,43 +81,42 @@ like Ruby and <a href="http://www.sinatrarb.com/">Sinatra</a>.  It had all the f
     <link href="http://davidvg.com/2011/12/07/converting-a-git-repo-to-svn/"/>
     <updated>2011-12-07T00:00:00-05:00</updated>
     <id>http://davidvg.com/2011/12/07/converting-a-git-repo-to-svn</id>
-    <content type="html"><![CDATA[<p>I know, usually people go the other way.  This is a bit of special case though:  a contractor had a project in git which we needed to import on our SVN server.  The contractor was only able to provide a zip of his repo, for various reasons.  This seems to preclude the widely used method detailed <a href="http://code.google.com/p/support/wiki/ImportingFromGit">here</a>.  I&#8217;m not enough of a git wizard to modify that for our specific situation.</p>
-
-
-
+    <content type="html"><![CDATA[<p>I know, usually people go the other way.  This is a bit of special case though:
+a contractor had a project in git which we needed to import on our SVN server.
+The contractor was only able to provide a zip of his repo, for various reasons.
+This seems to preclude the widely used method detailed <a href="http://code.google.com/p/support/wiki/ImportingFromGit">here</a>.
+I&#8217;m not enough of a git wizard to modify that for our specific situation.</p>
 
 <p>Ironically enough, Mercurial provided the easiest solution.</p>
 
+<p>Install Mercurial and a python subversion lib if you haven&#8217;t already (I&#8217;m using Ubuntu, adjust as necessary):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install mercurial python-subversion
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Configure Mercurial to use the ConvertExtension.  Add this to ~/.hgrc:</p>
 
-<p>Install Mercurial and a python subversion lib if you haven&#8217;t already (I&#8217;m using Ubuntu, adjust as necessary):<br/><br/>
-<code>sudo apt-get install mercurial python-subversion</code></p>
-
-
-
-
-<p>Configure Mercurial to use the ConvertExtension.  Add this to ~/.hgrc:<br/><br/>
-<code>[extensions]<br/>
-hgext.convert=
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>extensions<span class="o">]</span>
+</span><span class='line'>hgext.convert<span class="o">=</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Use Mercurial to covert from git to svn:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>hg convert --dest-type svn path/to/git/repo path/to/new/svn/repo
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Use Mercurial to covert from git to svn:<br/><br/>
-<code>hg convert --dest-type svn path/to/git/repo path/to/new/svn/repo</code></p>
+<p>Now you should have a directory with a full SVN repo, complete with commit history.<br/>
+Note that the commit times will not be correct.</p>
 
-
-
-
-<p>Now you should have a directory with a full SVN repo, complete with commit history.  Note that the commit times will not be correct.</p>
-
-
-
-
-<p>If needed, you can move your new SVN repo to another server using the excellent instructions <a href="http://www.petefreitag.com/item/665.cfm">here</a>.</p>
-
+<p>If needed, you can move your new SVN repo to another server using the
+excellent instructions <a href="http://www.petefreitag.com/item/665.cfm">here</a>.</p>
 ]]></content>
   </entry>
   
@@ -126,16 +125,27 @@ hgext.convert=
     <link href="http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/"/>
     <updated>2011-10-28T00:00:00-04:00</updated>
     <id>http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl</id>
-    <content type="html"><![CDATA[<p>I use <a href="https://github.com/binarylogic/authlogic">Authlogic</a> to provide authentication for a couple Rails projects.  I also use <a href="https://github.com/thoughtbot/factory_girl">Factory Girl</a> as a fixtures replacement.</p>
+    <content type="html"><![CDATA[<p>I use <a href="https://github.com/binarylogic/authlogic">Authlogic</a> to provide
+authentication for a couple Rails projects.  I also use <a href="https://github.com/thoughtbot/factory_girl">Factory Girl</a>
+as a fixtures replacement.</p>
 
-<p>When FG creates a User for you, a new UserSession automatically gets created.  This is by virtue of Authlogic&#8217;s automatic session maintenance, which can be pretty handy.  However, in my tests I want complete control over the UserSession.  Just because I created a new user, doesn&#8217;t mean I want that user logged in.  In many cases, I <strong>don&#8217;t</strong> want the user to be logged in, and this behavior was causing my tests to fail.</p>
+<p>When FG creates a User for you, a new UserSession automatically gets created.
+This is by virtue of Authlogic&#8217;s automatic session maintenance, which
+can be pretty handy.  However, in my tests I want complete control over
+the UserSession.  Just because I created a new user, doesn&#8217;t mean I want
+that user logged in.  In many cases, I <em>don&#8217;t</em> want the user to be
+logged in, and this behavior was causing my tests to fail.</p>
 
-<p>To work around this behaviour, I ended up adding this to my User factory:<br/><br/>
-<code>
-    after_create do |u|<br/>
-    &nbsp;&nbsp;u.class.maintain_sessions = false<br/>
-    end
-</code></p>
+<p>To work around this behaviour, I ended up adding this to my User factory:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">after_create</span> <span class="k">do</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">u</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">maintain_sessions</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>That quashed the autogenerated UserSession.  There might be a cleaner method somewhere, but so far this is doing the trick for me.</p>
 ]]></content>
@@ -146,13 +156,30 @@ hgext.convert=
     <link href="http://davidvg.com/2011/10/18/excluding-all-attributes-in-options-for-to_json/"/>
     <updated>2011-10-18T00:00:00-04:00</updated>
     <id>http://davidvg.com/2011/10/18/excluding-all-attributes-in-options-for-to_json</id>
-    <content type="html"><![CDATA[<p>Ran across a strange gotcha while working in Rails 3.0 today, having to do with the <code>:only</code> option to the <code>to_json</code> method.</p>
+    <content type="html"><![CDATA[<p>Ran across a strange gotcha while working in Rails 3.0 today, having to
+do with the <code>:only</code> option to the <code>to_json</code> method.</p>
 
-<p>Let&#8217;s say you have a Widget on which you call <code>to_json</code>.  You don&#8217;t want <strong>any</strong> of the widget&#8217;s attributes to appear in the JSON (maybe you only want some method results).  Normally, one would expect<br/><br/><code>{:only => [], :methods => [:foo, :bar]}</code><br/><br/>to do the trick.</p>
+<p>Let&#8217;s say you have a Widget on which you call <code>to_json</code>.  You don&#8217;t want
+<em>any</em> of the widget&#8217;s attributes to appear in the JSON (maybe you only
+want some method results).  Normally, one would expect this to do the trick:</p>
 
-<p>Strangely, this didn&#8217;t work.  I found I needed to put a nil in the empty <code>:only</code> array, like so: <br/><br/><code>{:only => [nil], :methods => [:foo, :bar]}</code><br/><br/>for everything to work as expected.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">{</span><span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>This might have something to do with the fact that I&#8217;m using the json gem, but I haven&#8217;t had the time to dive into that.</p>
+
+<p>Strangely, this didn&#8217;t work.  I found I needed to put a nil in the empty
+<code>:only</code> array, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">{</span><span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="kp">nil</span><span class="o">]</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>for everything to work as expected.</p>
+
+<p>This might have something to do with the fact that I&#8217;m using the json
+gem, but I haven&#8217;t had the time to dive into that.</p>
 ]]></content>
   </entry>
   
@@ -161,47 +188,91 @@ hgext.convert=
     <link href="http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql/"/>
     <updated>2011-10-12T00:00:00-04:00</updated>
     <id>http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql</id>
-    <content type="html"><![CDATA[<p>I&#8217;m constantly forgetting how to enable profiling and turn off query caching in MySQL.  So for my own benefit, and possibly yours, here&#8217;s the goods.</p>
+    <content type="html"><![CDATA[<p>I&#8217;m constantly forgetting how to enable profiling and turn off query
+caching in MySQL.  So for my own benefit, and possibly yours, here&#8217;s the
+goods.</p>
 
-<p>Turn off the query cache for your particular connection:<br/>
-<code>SET SESSION query_cache_type = OFF;</code></p>
+<p>Turn off the query cache for your particular connection:</p>
 
-<p>Enable profiling for your connection:<br/>
-<code>SET profiling=1;</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SET</span> <span class="k">SESSION</span> <span class="n">query_cache_type</span> <span class="o">=</span> <span class="k">OFF</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Run the query:<br/>
-<code>SELECT * FROM widgets WHERE plant_id = 5 ORDER BY widget_id DESC LIMIT 1;</code></p>
 
-<p>Show the profile:<br/>
-<code>SHOW profile;</code></p>
+<p>Enable profiling for your connection:</p>
 
-<p>You&#8217;ll get something like this:<br/>
-<code>
-+----------------------+----------+<br/>
-| Status               | Duration |<br/>
-+----------------------+----------+<br/>
-| starting             | 0.000087 |<br/>
-| checking permissions | 0.000013 |<br/>
-| Opening tables       | 0.000106 |<br/>
-| System lock          | 0.000099 |<br/>
-| init                 | 0.000036 |<br/>
-| optimizing           | 0.000019 |<br/>
-| statistics           | 0.000311 |<br/>
-| preparing            | 0.000027 |<br/>
-| executing            | 0.000006 |<br/>
-| Sorting result       | 0.000006 |<br/>
-| Sending data         | 0.001665 |<br/>
-| end                  | 0.000011 |<br/>
-| query end            | 0.000008 |<br/>
-| closing tables       | 0.000023 |<br/>
-| freeing items        | 0.000034 |<br/>
-| logging slow query   | 0.000005 |<br/>
-| cleaning up          | 0.000006 |<br/>
-+----------------------+----------+<br/>
-17 rows in set (0.00 sec)<br/>
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SET</span> <span class="n">profiling</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Remember that the time in the right column actually corresponds to to the operation in the row ABOVE.  So in this case, the operation that took 0.001665 seconds was the &#8220;Sorting result&#8221; operation, not the &#8220;Sending data&#8221; operation.</p>
+
+<p>Run the query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">widgets</span> <span class="k">WHERE</span> <span class="n">plant_id</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">widget_id</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Show the profile:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SHOW</span> <span class="n">profile</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&#8217;ll get something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>+----------------------+----------+
+</span><span class='line'>| Status               | Duration |
+</span><span class='line'>+----------------------+----------+
+</span><span class='line'>| starting             | 0.000087 |
+</span><span class='line'>| checking permissions | 0.000013 |
+</span><span class='line'>| Opening tables       | 0.000106 |
+</span><span class='line'>| System lock          | 0.000099 |
+</span><span class='line'>| init                 | 0.000036 |
+</span><span class='line'>| optimizing           | 0.000019 |
+</span><span class='line'>| statistics           | 0.000311 |
+</span><span class='line'>| preparing            | 0.000027 |
+</span><span class='line'>| executing            | 0.000006 |
+</span><span class='line'>| Sorting result       | 0.000006 |
+</span><span class='line'>| Sending data         | 0.001665 |
+</span><span class='line'>| end                  | 0.000011 |
+</span><span class='line'>| query end            | 0.000008 |
+</span><span class='line'>| closing tables       | 0.000023 |
+</span><span class='line'>| freeing items        | 0.000034 |
+</span><span class='line'>| logging slow query   | 0.000005 |
+</span><span class='line'>| cleaning up          | 0.000006 |
+</span><span class='line'>+----------------------+----------+
+</span><span class='line'>17 rows in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Remember that the time in the right column actually corresponds to to
+the operation in the row ABOVE.  So in this case, the operation that
+took 0.001665 seconds was the <code>Sorting result</code> operation, not the
+<code>Sending data</code> operation.</p>
 ]]></content>
   </entry>
   
@@ -223,66 +294,118 @@ hgext.convert=
     <link href="http://davidvg.com/2011/03/20/installing-the-starcraft-2-demo-on-linux-mint/"/>
     <updated>2011-03-20T00:00:00-04:00</updated>
     <id>http://davidvg.com/2011/03/20/installing-the-starcraft-2-demo-on-linux-mint</id>
-    <content type="html"><![CDATA[<p>
-	I&#8217;m an infrequent gamer, but occasionally I get bored enough to fire something up, generally an RTS of some variety. Today was a rainy Sunday, so I figured I would give StarCraft II a try. I don&#8217;t own the game, and didn&#8217;t intend to buy it without trying it out on Linux, so I installed the demo using <a href="http://www.winehq.org/">Wine</a>.</p>
-<p>
-	There&#8217;s a few walk-throughs on the web that I followed to get this going, but none of them specifically addressed the demo. If you&#8217;re trying to install the full version of the game, I suspect that <a href="http://www.playonlinux.com/">PlayOnLinux</a> would be easier (see the referenced walkthroughs for instructions).  But since PlayOnLinux doesn&#8217;t support the demo, here&#8217;s what I did.  These instructions are for Linux Mint, but they should work fine on Ubuntu without modification, or other distros with a few small changes.</p>
+    <content type="html"><![CDATA[<p>I&#8217;m an infrequent gamer, but occasionally I get bored enough to fire
+something up, generally an RTS of some variety. Today was a rainy
+Sunday, so I figured I would give StarCraft II a try. I don&#8217;t own the
+game, and didn&#8217;t intend to buy it without trying it out on Linux, so I
+installed the demo using <a href="http://www.winehq.org/">Wine</a>.</p>
+
+<p>There&#8217;s a few walk-throughs on the web that I followed to get this
+going, but none of them specifically addressed the demo. If you&#8217;re
+trying to install the full version of the game, I suspect that
+<a href="http://www.playonlinux.com/">PlayOnLinux</a> would be easier (see the
+referenced walkthroughs for instructions).  But since PlayOnLinux
+doesn&#8217;t support the demo, here&#8217;s what I did.  These instructions are for
+Linux Mint, but they should work fine on Ubuntu without modification, or
+other distros with a few small changes.</p>
+
 <ul>
-	
-<li><p>To get the audio working correctly, I had to install wine1.3, compiled with PulseAudio support (instead of wine1.2 which is in the Mint 9 repositories).  I found a PPA for that here: <a href="https://launchpad.net/~c-korn/+archive/ppa">https://launchpad.net/~c-korn/+archive/ppa</a>.  If you want, you can just download and install the .deb instead of adding the whole PPA.</p></li>
-
-<li><p>Get the latest winetricks script:</p>
-
-<typo:code lang="bash">
-wget http://winezeug.googlecode.com/svn/trunk/winetricks
-</typo:code><br/>
-</li>
-<li><p>Make it executable, and install some extras not included with Wine.  I&#8217;m not sure if all of these are needed, but these installed without error for me:</p>
-<typo:code lang="bash">
-chmod +x winetricks
-./winetricks droid fontfix fontsmooth-rgb vcrun2005 allfonts d3dx9 win7
-</typo:code><br/>
-</li>
-
-<li><p>Some walk-throughs suggest installing gecko for wine, I did that the following way:</p>
-<typo:code lang="bash">
-wget  http://winezeug.googlecode.com/svn/trunk/install-gecko.sh
-chmod +x install-gecko.sh 
-sudo ./install-gecko.sh
-</typo:code><br/>
-</li>
-
-<li><p>Configure Wine to use PulseAudio, if necessary:</p>
-<typo:code lang="bash">
-winecfg
-</typo:code><br/>
-
-<p>Then go to the &#8216;Audio&#8217; tab and select the PulseAudio Driver in the Sound Drivers tree</p></li>
-
-<li><p>Configure Wine to disable mmdevapi.  In the Libraries tab, under Existing Overrides, you may have mmdevapi listed.  Select it, click Edit, and choose Disabled.  If it&#8217;s not in the list, some people recommend adding it by finding mmdevapi in the above drop-down and clicking Add, then disabling it as before.</p></li>
-<li>
-		<p>Download the demo downloader from here:Â <a href="https://us.battle.net/account/sc2-demo.html">https://us.battle.net/account/sc2-demo.html</a></p></li>
-	
-<li>
-<p>Run the demo downloader using wine:</p>
-
-<typo:code lang="bash">
-chmod +x SC2-WingsOfLibertyDemo-enUS-downloader.exe 
-wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
-</typo:code><br/>
-
-
-<p>The download is pretty big.  Go play outside :-).</p>
-</li>
-<li><p>When the downloader is complete, it will give you the option to install the demo.  Go ahead and do that.</p></li>
-<li><p>The demo installer adds a Desktop icon, and an icon in your Wine menu.  At this point, you are hopefully good to go.  Performance under Wine is not as good as on Windows, so you may have to tweak your graphics settings.</p></li>
+<li><p>To get the audio working correctly, I had to install wine1.3,
+compiled with PulseAudio support (instead of wine1.2 which is in the
+Mint 9 repositories).  I found a PPA for that <a href="https://launchpad.net/~c-korn/+archive/ppa">here</a>.
+If you want, you can just download and install the .deb instead of
+adding the whole PPA.</p></li>
+<li><p>Get the latest winetricks script:</p></li>
 </ul>
-<p>The demo was enjoyable, if a little tame.  I might consider buying the game in the unlikely event that I suddenly find myself with a lot of free time :-).  For reference, I used the following two sites to put these steps together:</p>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://winezeug.googlecode.com/svn/trunk/winetricks
+</span></code></pre></td></tr></table></div></figure>
+
+
 <ul>
-<li>
-<a href="http://jeffhoogland.blogspot.com/2010/07/howto-starcraft-2-on-linux-with-wine.html">http://jeffhoogland.blogspot.com/2010/07/howto-starcraft-2-on-linux-with-wine.html</a></li>
+<li>Make it executable, and install some extras not included with Wine.
+I&#8217;m not sure if all of these are needed, but these installed without
+error for me:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>chmod +x winetricks
+</span><span class='line'>./winetricks droid fontfix fontsmooth-rgb vcrun2005 allfonts d3dx9 win7
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Some walk-throughs suggest installing gecko for wine, I did that the
+following way:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget  http://winezeug.googlecode.com/svn/trunk/install-gecko.sh
+</span><span class='line'>chmod +x install-gecko.sh
+</span><span class='line'>sudo ./install-gecko.sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Configure Wine to use PulseAudio, if necessary:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>winecfg
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>   Then go to the &#8216;Audio&#8217; tab and select the PulseAudio Driver in the
+   Sound Drivers tree.</p>
+
+<ul>
+<li><p>Configure Wine to disable mmdevapi.  In the Libraries tab, under
+Existing Overrides, you may have mmdevapi listed.  Select it, click
+Edit, and choose Disabled.  If it&#8217;s not in the list, some people
+recommend adding it by finding mmdevapi in the above drop-down and
+clicking Add, then disabling it as before.</p></li>
+<li><p>Download the demo downloader from
+<a href="https://us.battle.net/account/sc2-demo.html">here</a>.</p></li>
+<li><p>Run the demo downloader using wine:</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>chmod +x SC2-WingsOfLibertyDemo-enUS-downloader.exe
+</span><span class='line'>wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>The download is pretty big.  Go play outside :-).</p></li>
+<li><p>When the downloader is complete, it will give you the option to
+install the demo.  Go ahead and do that.</p></li>
+<li><p>The demo installer adds a Desktop icon, and an icon in your Wine
+menu.  At this point, you are hopefully good to go.  Performance
+under Wine is not as good as on Windows, so you may have to tweak
+your graphics settings.</p></li>
+</ul>
+
+
+<p>The demo was enjoyable, if a little tame.  I might consider buying the
+game in the unlikely event that I suddenly find myself with a lot of
+free time :-).  For reference, I used the following two sites to put
+these steps together:</p>
+
+<ul>
+<li><a href="http://jeffhoogland.blogspot.com/2010/07/howto-starcraft-2-on-linux-with-wine.html">http://jeffhoogland.blogspot.com/2010/07/howto-starcraft-2-on-linux-with-wine.html</a></li>
 <li><a href="http://www.retrohive.com/2010/08/20/play-starcraft-ii-linux/">http://www.retrohive.com/2010/08/20/play-starcraft-ii-linux/</a></li>
 </ul>
+
 ]]></content>
   </entry>
   
@@ -318,14 +441,34 @@ wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
     <link href="http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/"/>
     <updated>2010-04-06T00:00:00-04:00</updated>
     <id>http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database</id>
-    <content type="html"><![CDATA[<p>
-	Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential integrity constraints using execute calls in a migration. These database-implementation-specific statements cannot be included in the DB-independent schema.rb file, so when you run<code> rake test:db:prepare</code> (or it is called implicitly by <code>rake test:functionals</code>), your FK constraints are not included in the test database.</p>
-<p>
-	The workaround to this is simple. In your environment.rb file, add (or uncomment) a line as follows:</p>
-<p>
-	<code>config.active_record.schema_format = :sql</code></p>
-<p>
-	Now Rails will load the test DB structure from db/development_structure.rb, which should be automatically created when you run your tests. You can also create it manually using <code>rake db:structure:dump</code>.</p>
+    <content type="html"><![CDATA[<p>Wondering why your foreign key constraints are never created in your
+Rails test database? Chances are you, like me, are creating your
+referential integrity constraints using execute calls in a migration.
+These database-implementation-specific statements cannot be included in
+the DB-independent schema.rb file, so when you run <code>rake test:db:prepare</code>
+(or it is called implicitly by <code>rake test</code>), your FK constraints are not
+included in the test database.</p>
+
+<p>The workaround to this is simple. In your <code>config/environment.rb</code> file, add
+(or uncomment) a line as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">active_record</span><span class="o">.</span><span class="n">schema_format</span> <span class="o">=</span> <span class="ss">:sql</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now Rails will load the test DB structure from
+<code>db/development_structure.sql</code>, which should be automatically created
+when you run your tests. You can also create it manually using
+<code>rake db:structure:dump</code>.</p>
+
+<p><em>Update</em>:</p>
+
+<ul>
+<li>I now recommend using the <a href="https://github.com/matthuhiggins/foreigner">foreigner gem</a> to create your foreign keys</li>
+<li>In Rails 3, the config option should be put in <code>config/application.rb</code></li>
+</ul>
+
 ]]></content>
   </entry>
   

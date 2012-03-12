@@ -9,7 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I know, usually people go the other way. This is a bit of special case though: a contractor had a project in git which we needed to import on our SVN &hellip;">
+  <meta name="description" content="I know, usually people go the other way. This is a bit of special case though:
+a contractor had a project in git which we needed to import on our SVN &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,43 +104,42 @@
   </header>
 
 
-<div class="entry-content"><p>I know, usually people go the other way.  This is a bit of special case though:  a contractor had a project in git which we needed to import on our SVN server.  The contractor was only able to provide a zip of his repo, for various reasons.  This seems to preclude the widely used method detailed <a href="http://code.google.com/p/support/wiki/ImportingFromGit">here</a>.  I&#8217;m not enough of a git wizard to modify that for our specific situation.</p>
-
-
-
+<div class="entry-content"><p>I know, usually people go the other way.  This is a bit of special case though:
+a contractor had a project in git which we needed to import on our SVN server.
+The contractor was only able to provide a zip of his repo, for various reasons.
+This seems to preclude the widely used method detailed <a href="http://code.google.com/p/support/wiki/ImportingFromGit">here</a>.
+I&#8217;m not enough of a git wizard to modify that for our specific situation.</p>
 
 <p>Ironically enough, Mercurial provided the easiest solution.</p>
 
+<p>Install Mercurial and a python subversion lib if you haven&#8217;t already (I&#8217;m using Ubuntu, adjust as necessary):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get install mercurial python-subversion
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Configure Mercurial to use the ConvertExtension.  Add this to ~/.hgrc:</p>
 
-<p>Install Mercurial and a python subversion lib if you haven&#8217;t already (I&#8217;m using Ubuntu, adjust as necessary):<br/><br/>
-<code>sudo apt-get install mercurial python-subversion</code></p>
-
-
-
-
-<p>Configure Mercurial to use the ConvertExtension.  Add this to ~/.hgrc:<br/><br/>
-<code>[extensions]<br/>
-hgext.convert=
-</code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>extensions<span class="o">]</span>
+</span><span class='line'>hgext.convert<span class="o">=</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Use Mercurial to covert from git to svn:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>hg convert --dest-type svn path/to/git/repo path/to/new/svn/repo
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Use Mercurial to covert from git to svn:<br/><br/>
-<code>hg convert --dest-type svn path/to/git/repo path/to/new/svn/repo</code></p>
+<p>Now you should have a directory with a full SVN repo, complete with commit history.<br/>
+Note that the commit times will not be correct.</p>
 
-
-
-
-<p>Now you should have a directory with a full SVN repo, complete with commit history.  Note that the commit times will not be correct.</p>
-
-
-
-
-<p>If needed, you can move your new SVN repo to another server using the excellent instructions <a href="http://www.petefreitag.com/item/665.cfm">here</a>.</p>
-
+<p>If needed, you can move your new SVN repo to another server using the
+excellent instructions <a href="http://www.petefreitag.com/item/665.cfm">here</a>.</p>
 </div>
 
 

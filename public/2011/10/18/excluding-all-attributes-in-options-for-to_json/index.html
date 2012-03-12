@@ -9,7 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="Ran across a strange gotcha while working in Rails 3.0 today, having to do with the :only option to the to_json method. Let&#8217;s say you have a &hellip;">
+  <meta name="description" content="Ran across a strange gotcha while working in Rails 3.0 today, having to
+do with the :only option to the to_json method. Let&#8217;s say you have a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,13 +104,30 @@
   </header>
 
 
-<div class="entry-content"><p>Ran across a strange gotcha while working in Rails 3.0 today, having to do with the <code>:only</code> option to the <code>to_json</code> method.</p>
+<div class="entry-content"><p>Ran across a strange gotcha while working in Rails 3.0 today, having to
+do with the <code>:only</code> option to the <code>to_json</code> method.</p>
 
-<p>Let&#8217;s say you have a Widget on which you call <code>to_json</code>.  You don&#8217;t want <strong>any</strong> of the widget&#8217;s attributes to appear in the JSON (maybe you only want some method results).  Normally, one would expect<br/><br/><code>{:only => [], :methods => [:foo, :bar]}</code><br/><br/>to do the trick.</p>
+<p>Let&#8217;s say you have a Widget on which you call <code>to_json</code>.  You don&#8217;t want
+<em>any</em> of the widget&#8217;s attributes to appear in the JSON (maybe you only
+want some method results).  Normally, one would expect this to do the trick:</p>
 
-<p>Strangely, this didn&#8217;t work.  I found I needed to put a nil in the empty <code>:only</code> array, like so: <br/><br/><code>{:only => [nil], :methods => [:foo, :bar]}</code><br/><br/>for everything to work as expected.</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">{</span><span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>This might have something to do with the fact that I&#8217;m using the json gem, but I haven&#8217;t had the time to dive into that.</p>
+
+<p>Strangely, this didn&#8217;t work.  I found I needed to put a nil in the empty
+<code>:only</code> array, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">{</span><span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="kp">nil</span><span class="o">]</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>for everything to work as expected.</p>
+
+<p>This might have something to do with the fact that I&#8217;m using the json
+gem, but I haven&#8217;t had the time to dive into that.</p>
 </div>
 
 

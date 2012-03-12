@@ -9,7 +9,9 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential &hellip;">
+  <meta name="description" content="Wondering why your foreign key constraints are never created in your
+Rails test database? Chances are you, like me, are creating your
+referential &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -103,14 +105,34 @@
   </header>
 
 
-<div class="entry-content"><p>
-	Wondering why your foreign key constraints are never created in your Rails test database? Chances are you, like me, are creating your referential integrity constraints using execute calls in a migration. These database-implementation-specific statements cannot be included in the DB-independent schema.rb file, so when you run<code> rake test:db:prepare</code> (or it is called implicitly by <code>rake test:functionals</code>), your FK constraints are not included in the test database.</p>
-<p>
-	The workaround to this is simple. In your environment.rb file, add (or uncomment) a line as follows:</p>
-<p>
-	<code>config.active_record.schema_format = :sql</code></p>
-<p>
-	Now Rails will load the test DB structure from db/development_structure.rb, which should be automatically created when you run your tests. You can also create it manually using <code>rake db:structure:dump</code>.</p>
+<div class="entry-content"><p>Wondering why your foreign key constraints are never created in your
+Rails test database? Chances are you, like me, are creating your
+referential integrity constraints using execute calls in a migration.
+These database-implementation-specific statements cannot be included in
+the DB-independent schema.rb file, so when you run <code>rake test:db:prepare</code>
+(or it is called implicitly by <code>rake test</code>), your FK constraints are not
+included in the test database.</p>
+
+<p>The workaround to this is simple. In your <code>config/environment.rb</code> file, add
+(or uncomment) a line as follows:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">active_record</span><span class="o">.</span><span class="n">schema_format</span> <span class="o">=</span> <span class="ss">:sql</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now Rails will load the test DB structure from
+<code>db/development_structure.sql</code>, which should be automatically created
+when you run your tests. You can also create it manually using
+<code>rake db:structure:dump</code>.</p>
+
+<p><em>Update</em>:</p>
+
+<ul>
+<li>I now recommend using the <a href="https://github.com/matthuhiggins/foreigner">foreigner gem</a> to create your foreign keys</li>
+<li>In Rails 3, the config option should be put in <code>config/application.rb</code></li>
+</ul>
+
 </div>
 
 
