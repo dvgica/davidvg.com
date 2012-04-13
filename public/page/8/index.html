@@ -9,7 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="The last few days had me banging my head against the wall trying to fix a &quot;4gb seg fixup&quot; problem that was polluting logs and slowing down &hellip;">
+  <meta name="description" content="Having noticed that my WRT160N router wasn&#39;t updating my DynDNS records regularly, I checked out the latest firmware releases from Linksys. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2009/10/04/wrt160n-dyndns-and-upgrading-firmware/">WRT160N: DynDNS and upgrading firmware</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-04T00:00:00-04:00" pubdate data-updated="true">Oct 4<span>th</span>, 2009</time>
+        
+         | <a href="/2009/10/04/wrt160n-dyndns-and-upgrading-firmware/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	Having noticed that my WRT160N router wasn&#39;t updating my DynDNS records regularly, I checked out the <a href="http://www.linksysbycisco.com/US/en/support/WRT160N/download">latest firmware releases</a> from Linksys. Turns out v3.0.02 fixes the problem, according to the <a href="http://downloads.linksysbycisco.com/downloads/WRT160Nv3-3002_003.txt">release notes</a>.</p>
+<p>
+	However I ran into some trouble uploading the firmware. The upload would get to 98%, hang for a minute or so, and then the page would give me a &quot;Firmware upgrade failed&quot; message. At that point the router web interface would crash and I would have to power cycle it. Anyway after monkeying around with it a bunch of times, I got it to work. Moral of the story, if your firmware upgrade is failing, you might try any and all of these things:</p>
+<ul>
+	<li>
+		If you&#39;re running Linux, try using Windows (I ended up using an XP virtual machine)</li>
+	<li>
+		Try IE instead of Firefox</li>
+	<li>
+		Use HTTP to access the router instead of HTTPS</li>
+	<li>
+		Curse the router repeatedly</li>
+</ul>
+<p>
+	I&#39;m still not sure which of those steps did the trick, but my money is on the last one :-). Hope that helps someone out there.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -160,59 +213,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/08/16/60cyclecms-2-1-0/">60cycleCMS 2.1.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-08-16T00:00:00-04:00" pubdate data-updated="true">Aug 16<span>th</span>, 2009</time>
-        
-         | <a href="/2009/08/16/60cyclecms-2-1-0/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	Yep, another release :-). Since 2.0.0 I&#39;ve fixed a few security vulnerabilities and bugs, and now 2.1.0 brings a better installation script that Does More For You<sup>TM</sup>, including:</p>
-<ul>
-	<li>
-		Creating the database from scratch, if needed</li>
-	<li>
-		Automatically creating the .htaccess and .htpasswd files to protect the administrative area of the site, based on credentials chosen by the user</li>
-	<li>
-		Attempting to create the necessary MySQL credentials file</li>
-</ul>
-<p>
-	The Dashboard now includes links to change the username and password as well. I&#39;ve also set up a <a href="http://sourceforge.net/projects/sixtycyclecms/">SourceForge site</a> for the project, although there isn&#39;t terribly much on there for now.</p>
-<p>
-	Next on my TODO list is allowing visitors to leave comments.</p>
-<p>
-	Grab the latest zip from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a> or use <a href="http://svn.60cycle.net/60cycleCMS/">anonymous SVN access</a>. Enjoy!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/9/">&larr; Older</a>
@@ -230,6 +230,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/03/07/reviewing-your-github-ssh-key/">Reviewing your GitHub SSH key</a>
       </li>
     
@@ -243,10 +247,6 @@
     
       <li class="post">
         <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a>
       </li>
     
   </ul>

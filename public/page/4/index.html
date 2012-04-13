@@ -9,7 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="So, regular readers of this site (all two of them) may have noticed that 60cycle.net wasn&#39;t getting a whole lot of love lately. &nbsp;There&#39; &hellip;">
+  <meta name="description" content="As a result of switching to Typo for davidvg.com, I will no longer be maintaining 60cycleCMS. However, it will still be available on SourceForge at &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/03/12/what-will-happen-to-60cyclecms/">What will happen to 60cycleCMS?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-12T00:00:00-05:00" pubdate data-updated="true">Mar 12<span>th</span>, 2011</time>
+        
+         | <a href="/2011/03/12/what-will-happen-to-60cyclecms/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As a result of switching to Typo for davidvg.com, I will no longer be maintaining 60cycleCMS. However, it will still be available on SourceForge at <a href="http://sourceforge.net/projects/sixtycyclecms/">http://sourceforge.net/projects/sixtycyclecms/</a>. If you really want to use, fork it, or whatever, go right ahead; the code is licensed under a BSD license.</p>
+<p>Frankly, I wouldn&#8217;t recommend using it for new websites. I wrote it when I didn&#8217;t know too much about web development, and it&#8217;s quite possible that it&#8217;s vulnerable to a few hacks (see <a href="http://davidvg.com/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms">this post</a> for a discussion of some of them). So, consider yourself warned.</p>
+<p>I, for one, welcome our new Typo overlords :-).</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -186,53 +226,6 @@ when you run your tests. You can also create it manually using
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms/">Supposed security vulnerabilities in 60cycleCMS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-27T00:00:00-04:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
-        
-         | <a href="/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	Googling 60cycleCMS these days brings up a few &quot;security vulnerabilities&quot; that, at first glance, are somewhat alarming. The first alleged vulnerability is generally described as an HTML injection or a persistent XSS (cross-site scripting) vulnerability. Here&#39;s a <a href="http://www.securityfocus.com/bid/38637/info">link</a> to a report (the reports tend to multiply across the web, so there are other sites describing the same exploit).</p>
-<p>
-	I&#39;m all for transparency and openness in coding, and I&#39;m glad people take time to expose vulnerabilities in others&#39; code. However, this XSS &quot;vulnerability&quot; really needs to be put in context.</p>
-<p>
-	The XSS exploit states that an attacker can insert malicious HTML or Javascript into an existing post using the &quot;Edit&quot; feature of 60cycleCMS because the user input is unvalidated. While the unvalidated input part of this exploit is true, it is intentional and, when the CMS is installed as intended, does not expose the website to attack. Let me elaborate somewhat. The user input is unvalidated to allow a website author to post any HTML content they want. When I write this post I don&#39;t want to fight my own HTML filters. Secondly, the page in question (private/select.php?act=edit) is a private page, if the exploit author had bothered to read the readme or install the CMS, he would have noticed that install process password protects that area of the site using an .htaccess file. Therefore, only the website author (presumably trusted&#8230;.) may post unfiltered HTML and/or Javascript on the site. If you were to un-protect the private admin section of the site, then this exploit would be possible, but then of course an attacker could do anything they wanted to, whether it be deleting your posts or changing your database configuration. Presumably my users are not stupid enough to leave themselves open this way.</p>
-<p>
-	The second supposed vulnerability is a remote file inclusion vulnerability. Here&#39;s a <a href="http://securityreason.com/wlb_show/WLB-2009120070">link</a>. Originally posted over at exploit-db.com, this exploit claimed that you could include a remote file in the PHP powering the CMS, thus allowing you to execute arbitrary code on the webserver. The &quot;exploit&quot; centered around overwriting the $_SERVER variable so that the CMS would load the config.php file from another location besides the usual (one level above website root). This vulnerability is just plain false. PHP does not allow a remote user to override the $_SERVER variable, for obvious reasons. There&#39;s an email thread discussing this in more detail <a href="http://attrition.org/pipermail/vim/2009-December/002302.html">here</a>. The exploit has been removed from ExploitDB (I can only assume because it is incorrect), but a few sites around the web still have it up.</p>
-<p>
-	The point is, don&#39;t believe everything you read on the web. It would seem there&#39;s people out there trying to make us think they&#39;re l33t hackers by exposing security vulnerabilities when, in reality, they don&#39;t do their homework and are sometimes just plain wrong. If you do have any concerns about the security of 60cycleCMS, please <a href="http://60cycle.net/contact.php">contact me</a> or leave a comment, and I will be happy to discuss your concerns.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/5/">&larr; Older</a>
@@ -250,6 +243,10 @@ when you run your tests. You can also create it manually using
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/03/07/reviewing-your-github-ssh-key/">Reviewing your GitHub SSH key</a>
       </li>
     
@@ -263,10 +260,6 @@ when you run your tests. You can also create it manually using
     
       <li class="post">
         <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a>
       </li>
     
   </ul>

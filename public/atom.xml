@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2012-03-12T12:47:24-04:00</updated>
+  <updated>2012-04-13T16:55:05-04:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Removing newlines from Logging events]]></title>
+    <link href="http://davidvg.com/2012/04/13/removing-newlines-from-logging-events/"/>
+    <updated>2012-04-13T15:53:00-04:00</updated>
+    <id>http://davidvg.com/2012/04/13/removing-newlines-from-logging-events</id>
+    <content type="html"><![CDATA[<p>I added the <a href="https://github.com/TwP/logging">Logging gem</a> to a project
+I&#8217;m working on, and so far I like it a lot.  It is modelled after
+<a href="http://logging.apache.org/log4j/">log4j</a>
+and, as such, allows you to send logs to syslog (our main usage for it).</p>
+
+<p>One issue that I&#8217;ve run into with using syslog(-ng) as a Rails logger is
+that Rails tends to spit out multi-line log events.  Unless you have a
+very new version of syslog-ng, this may cause syslog to interpret each
+new line as a new event.  Unfortunately subsequent lines get written
+with a blank program identification, which can cause filtering rules in
+syslog-ng to break.</p>
+
+<p>My solution to this was to monkeypatch the <code>Logging::LogEvent</code> with an
+Around Alias.  This causes the <code>data</code> accessor to return a string with
+the newlines substituted with a different delimiter, <code>&lt;&lt;</code> in this
+case.  I added the Around Alias to the end of the <code>config/logging.rb</code>
+file:</p>
+
+<figure class='code'><figcaption><span>config/logging.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Other config here...</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># This is a hack to remove new lines from our log data</span>
+</span><span class='line'><span class="k">module</span> <span class="nn">Logging</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">LogEvent</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">data_with_stripped_newlines</span>
+</span><span class='line'>      <span class="nb">self</span><span class="o">.</span><span class="n">data_without_stripped_newlines</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &gt;&gt; &quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">alias_method_chain</span> <span class="ss">:data</span><span class="p">,</span> <span class="ss">:stripped_newlines</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So far it&#8217;s working quite nicely.  Any better ways of doing it?  Let me
+know!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reviewing your GitHub SSH key]]></title>
@@ -577,28 +636,6 @@ when you run your tests. You can also create it manually using
 	Having set Dropbox up for both of us, I&#39;m really impressed so far, especially since it works seamlessly with Linux, my platform of choice. Ars Technica has a good <a href="http://arstechnica.com/software/news/2008/09/how-dropbox-ended-my-search-for-seamless-sync-on-linux.ars">review</a> of the service, and many others have jotted down their thoughts, so I&#39;m not going to go any further than saying I like it.</p>
 <p>
 	If you&#39;re interested in using Dropbox, use this referral link: <a href="https://www.dropbox.com/referrals/NTMyMDkwNDc5">https://www.dropbox.com/referrals/NTMyMDkwNDc5</a>, and we&#39;ll both get an extra 250 MB of storage!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Using Google Maps to find a latitude and longitude]]></title>
-    <link href="http://davidvg.com/2009/11/20/using-google-maps-to-find-a-latitude-and-longitude/"/>
-    <updated>2009-11-20T00:00:00-05:00</updated>
-    <id>http://davidvg.com/2009/11/20/using-google-maps-to-find-a-latitude-and-longitude</id>
-    <content type="html"><![CDATA[<p>
-	I&#39;ve been working with the Google Maps API recently for another website I&#39;m working on, and I frequently find myself creating new GMarkers from a latitude and longitude pair. So far, the best way I&#39;ve found of getting a location&#39;s exact latitude and longitude is this:</p>
-<ul>
-	<li>
-		Go to <a href="http://maps.google.com">maps.google.com</a> and find the location</li>
-	<li>
-		Right click at your desired location on the map, and select &quot;Center map here&quot;</li>
-	<li>
-		In the top right hand corner of the map, click the &quot;Link&quot; link</li>
-	<li>
-		Copy-paste the resultant URL elsewhere. In the middle of the URL is a parameter similar to this: ll=42.963615,-85.664263, that&#39;s your latitude and longitude pair</li>
-</ul>
-<p>
-	Enjoy!</p>
 ]]></content>
   </entry>
   

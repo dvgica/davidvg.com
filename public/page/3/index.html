@@ -9,7 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="On my current project, I use an Ubuntu Server virtual machine to run MySQL and Rails. It makes it easy to keep my development environments for &hellip;">
+  <meta name="description" content="I&#8217;m constantly forgetting how to enable profiling and turn off query
+caching in MySQL. So for my own benefit, and possibly yours, here&#8217;s &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,128 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/12/disabling-the-query-cache-and-profiling-mysql/">Disabling the query cache and profiling MySQL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-12T00:00:00-04:00" pubdate data-updated="true">Oct 12<span>th</span>, 2011</time>
+        
+         | <a href="/2011/10/12/disabling-the-query-cache-and-profiling-mysql/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m constantly forgetting how to enable profiling and turn off query
+caching in MySQL.  So for my own benefit, and possibly yours, here&#8217;s the
+goods.</p>
+
+<p>Turn off the query cache for your particular connection:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SET</span> <span class="k">SESSION</span> <span class="n">query_cache_type</span> <span class="o">=</span> <span class="k">OFF</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enable profiling for your connection:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SET</span> <span class="n">profiling</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Run the query:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">widgets</span> <span class="k">WHERE</span> <span class="n">plant_id</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">widget_id</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Show the profile:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">SHOW</span> <span class="n">profile</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&#8217;ll get something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>+----------------------+----------+
+</span><span class='line'>| Status               | Duration |
+</span><span class='line'>+----------------------+----------+
+</span><span class='line'>| starting             | 0.000087 |
+</span><span class='line'>| checking permissions | 0.000013 |
+</span><span class='line'>| Opening tables       | 0.000106 |
+</span><span class='line'>| System lock          | 0.000099 |
+</span><span class='line'>| init                 | 0.000036 |
+</span><span class='line'>| optimizing           | 0.000019 |
+</span><span class='line'>| statistics           | 0.000311 |
+</span><span class='line'>| preparing            | 0.000027 |
+</span><span class='line'>| executing            | 0.000006 |
+</span><span class='line'>| Sorting result       | 0.000006 |
+</span><span class='line'>| Sending data         | 0.001665 |
+</span><span class='line'>| end                  | 0.000011 |
+</span><span class='line'>| query end            | 0.000008 |
+</span><span class='line'>| closing tables       | 0.000023 |
+</span><span class='line'>| freeing items        | 0.000034 |
+</span><span class='line'>| logging slow query   | 0.000005 |
+</span><span class='line'>| cleaning up          | 0.000006 |
+</span><span class='line'>+----------------------+----------+
+</span><span class='line'>17 rows in <span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Remember that the time in the right column actually corresponds to to
+the operation in the row ABOVE.  So in this case, the operation that
+took 0.001665 seconds was the <code>Sorting result</code> operation, not the
+<code>Sending data</code> operation.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -267,46 +390,6 @@ these steps together:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/03/12/what-will-happen-to-60cyclecms/">What will happen to 60cycleCMS?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-12T00:00:00-05:00" pubdate data-updated="true">Mar 12<span>th</span>, 2011</time>
-        
-         | <a href="/2011/03/12/what-will-happen-to-60cyclecms/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>As a result of switching to Typo for davidvg.com, I will no longer be maintaining 60cycleCMS. However, it will still be available on SourceForge at <a href="http://sourceforge.net/projects/sixtycyclecms/">http://sourceforge.net/projects/sixtycyclecms/</a>. If you really want to use, fork it, or whatever, go right ahead; the code is licensed under a BSD license.</p>
-<p>Frankly, I wouldn&#8217;t recommend using it for new websites. I wrote it when I didn&#8217;t know too much about web development, and it&#8217;s quite possible that it&#8217;s vulnerable to a few hacks (see <a href="http://davidvg.com/2010/03/27/supposed-security-vulnerabilities-in-60cyclecms">this post</a> for a discussion of some of them). So, consider yourself warned.</p>
-<p>I, for one, welcome our new Typo overlords :-).</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/4/">&larr; Older</a>
@@ -324,6 +407,10 @@ these steps together:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/03/07/reviewing-your-github-ssh-key/">Reviewing your GitHub SSH key</a>
       </li>
     
@@ -337,10 +424,6 @@ these steps together:</p>
     
       <li class="post">
         <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a>
       </li>
     
   </ul>

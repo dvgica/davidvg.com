@@ -9,7 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I&#8217;ve hinted at another website in the works in previous posts, and it&#8217;s finally gracing the interwebs: davidandjo.org. All the info you &hellip;">
+  <meta name="description" content="A while ago I installed CentOS 5.4 in a VM running in VirtualBox. After installing the Guest Additions, and doing a few setup tasks, I noticed that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/02/23/high-cpu-load-on-centos-virtualbox/">High CPU load on CentOS VirtualBox</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-23T00:00:00-05:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2010</time>
+        
+         | <a href="/2010/02/23/high-cpu-load-on-centos-virtualbox/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	A while ago I installed CentOS 5.4 in a VM running in VirtualBox. After installing the Guest Additions, and doing a few setup tasks, I noticed that the VM was almost pegging one core of my dual-core host CPU. The load would periodically drop to about 50%, but then return to 100%. Googling revealed the problem to be the CentOS kernel running at 1000 Hz. I didn&#39;t want to recompile the kernel, but providing an option to GRUB did the trick. Adding &quot;divider=10&quot; to the end of the kernel has been working beautifully. So your menu.lst entry for CentOS should read something like this:<br />
+	<br />
+	<code>title CentOS (2.6.18-164.6.1.el5)<br />
+	&nbsp;&nbsp;&nbsp;root (hd0,0)<br />
+	&nbsp;&nbsp;&nbsp;kernel /vmlinuz-2.6.18-164.6.1.el5 ro root=.... rhgb quiet divider=10<br />
+	&nbsp;&nbsp;&nbsp;initrd /initrd-2.6.18-164.6.1.el5.img</code></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -155,49 +199,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/12/02/60cyclecms-2-5-0-released/">60cycleCMS 2.5.0 released!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-12-02T00:00:00-05:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2009</time>
-        
-         | <a href="/2009/12/02/60cyclecms-2-5-0-released/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	At long last I&#39;ve found some time to work on <a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS</a>, and version 2.5.0 is the result. A major change in 2.5.0 is the addition of a new visitor comment system. I&#39;ve integrated <a href="http://recaptcha.net">RECAPTCHA</a> and <a href="http://htmlpurifier.org">HTML Purifier</a> to thwart spammers and XSS, respectively. I&#39;ve also allowed for email notifications of new comments. Of course, the comment system is both optional and configurable, meaning you can enable or disable it and its features at will.</p>
-<p>
-	As always, you can see the latest version in action on this very website. I&#39;ve also notified the admins at <a href="http://php.opensourcecms.com/scripts/details.php?scriptid=337">opensourceCMS</a>, and hopefully a demo of the new version will be available soon.</p>
-<p>
-	Download the new version from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a> or <a href="http://sourceforge.net/projects/sixtycyclecms/">SourceForge</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/7/">&larr; Older</a>
@@ -215,6 +216,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/03/07/reviewing-your-github-ssh-key/">Reviewing your GitHub SSH key</a>
       </li>
     
@@ -228,10 +233,6 @@
     
       <li class="post">
         <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a>
       </li>
     
   </ul>
