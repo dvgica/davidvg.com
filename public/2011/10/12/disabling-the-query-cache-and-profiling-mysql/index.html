@@ -219,7 +219,7 @@ took 0.001665 seconds was the <code>Sorting result</code> operation, not the
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql/" data-via="" data-counturl="http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql/" data-via="DWvanGeest" data-counturl="http://davidvg.com/2011/10/12/disabling-the-query-cache-and-profiling-mysql/" >Tweet</a>
   
   
   
@@ -281,6 +281,27 @@ took 0.001665 seconds was the <code>Sorting result</code> operation, not the
     </a>
   </div>
 </section>
+<section>
+  <div class="centered">
+    <iframe src="http://githubbadge.appspot.com/badge/DWvanGeest" style="border: 0;height: 117px;width: 200px;overflow: hidden;" frameBorder=0></iframe>
+  </div>
+</section>
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("DWvanGeest", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/DWvanGeest" class="twitter-follow-button" data-show-count="false">Follow @DWvanGeest</a>
+  
+</section>
+
 
   
 </aside>

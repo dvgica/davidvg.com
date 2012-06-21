@@ -163,7 +163,7 @@ when you run your tests. You can also create it manually using
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/" data-via="" data-counturl="http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/" data-via="DWvanGeest" data-counturl="http://davidvg.com/2010/04/06/missing-foreign-key-constraints-in-rails-test-database/" >Tweet</a>
   
   
   
@@ -225,6 +225,27 @@ when you run your tests. You can also create it manually using
     </a>
   </div>
 </section>
+<section>
+  <div class="centered">
+    <iframe src="http://githubbadge.appspot.com/badge/DWvanGeest" style="border: 0;height: 117px;width: 200px;overflow: hidden;" frameBorder=0></iframe>
+  </div>
+</section>
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("DWvanGeest", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/DWvanGeest" class="twitter-follow-button" data-show-count="false">Follow @DWvanGeest</a>
+  
+</section>
+
 
   
 </aside>
