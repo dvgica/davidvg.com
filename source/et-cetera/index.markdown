@@ -16,7 +16,7 @@ Web Reading
 Links!
 ------
 
-  * [\[ Rhythm Reloaded \]](http://knightvision.calvin.edu/bbcswebdav/orgs/ENGR/senior-projects/2007-08/Team06/) - Back in college my senior design team built a digital wireless stethoscope, here's
+  * [\[ Rhythm Reloaded \]](http://www.calvin.edu/academic/engineering/senior-design/SeniorDesign07-08/Team06/) - Back in college my senior design team built a digital wireless stethoscope, here's
     our website (formerly rhythmreloaded.com).
   * [Patricia Van Reenen, M.S.W., R.S.W](http://www.pvanreenen.com) - (Inserts shameless plug for mom's pyschotherapy practice) Got issues?
     Also note that this was the first website I ever made, and as such I'm inordinately proud of it.
