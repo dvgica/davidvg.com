@@ -15,6 +15,7 @@ group :development do
   gem 'stringex'
   gem 'liquid', '2.2.2'
   gem 'foreman'
+  gem 'heroku'
 end
 
 gem 'sinatra'
