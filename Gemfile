@@ -16,6 +16,7 @@ group :development do
   gem 'liquid', '2.2.2'
   gem 'foreman'
   gem 'heroku'
+  gem 'iconv'
 end
 
 gem 'sinatra'
