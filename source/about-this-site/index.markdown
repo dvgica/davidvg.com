@@ -7,7 +7,7 @@ sharing: false
 Welcome to my home on the web.  Here you can find occasional notes about various tech subjects if I think others
 might find my insights useful (or if I really just need to write it down somewhere so I don't forget).
 
-The site uses [Octopress](http://octopress.org/), a blogging framework for hackers.  Behind the scenes, its using some of my favourite tools, 
+The site uses [Octopress](http://octopress.org/), a blogging framework for developers.  Behind the scenes, its using some handy tools,
 like [Ruby](http://www.ruby-lang.org/en/) and [Sinatra](http://www.sinatrarb.com/).  The site is hosted on [Heroku](http://www.heroku.com/).
 
 Acknowledgements
@@ -15,7 +15,6 @@ Acknowledgements
 
  * [Brandon Mathis](http://brandonmathis.com/), for creating the blogging framework that powers this site!
  * The folks at Github for creating [Jekyll](https://github.com/mojombo/jekyll), on which Octopress is based
- * My ~~Girlfriend~~ ~~Fiancée~~ Wife, for putting up with my excited technobabble during the making (and re-making) of this site :-)
 
 Licensing
 ---------
