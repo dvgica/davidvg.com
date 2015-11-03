@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2015-11-02T22:09:46-05:00</updated>
+  <updated>2015-11-02T22:22:09-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -18,7 +18,7 @@
     <link href="http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference/"/>
     <updated>2015-11-02T19:42:00-05:00</updated>
     <id>http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference</id>
-    <content type="html"><![CDATA[<p>In my last post, I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type <code>Class[T]</code>), I need a reference to its companion object.</p>
+    <content type="html"><![CDATA[<p>In my <a href="http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala/">last post</a>, I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type <code>Class[T]</code>), I need a reference to its companion object.</p>
 
 <p>This time, the standard Scala reflection API did exactly what I needed. The below code takes my list of subclasses, gets a reference to the companion object of each one, and then maps the result of a method on that companion object to the subclass itself.</p>
 

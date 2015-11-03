@@ -6,7 +6,7 @@ comments: true
 categories:
 ---
 
-In my last post, I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type `Class[T]`), I need a reference to its companion object.
+In my [last post](/2015/10/23/finding-concrete-subtypes-in-scala/), I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type `Class[T]`), I need a reference to its companion object.
 
 This time, the standard Scala reflection API did exactly what I needed. The below code takes my list of subclasses, gets a reference to the companion object of each one, and then maps the result of a method on that companion object to the subclass itself.
 
