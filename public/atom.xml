@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2015-11-02T19:35:45-05:00</updated>
+  <updated>2015-11-02T20:05:46-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -12,6 +12,83 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dynamically getting a Scala companion object reference]]></title>
+    <link href="http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference/"/>
+    <updated>2015-11-02T19:42:00-05:00</updated>
+    <id>http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference</id>
+    <content type="html"><![CDATA[<p>In my last post, I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type <code>Class[T]</code>), I need a reference to its companion object.</p>
+
+<p>This time, the standard Scala reflection API did exactly what I needed. The below code takes my list of subclasses, gets a reference to the companion object of each one, and then maps the result of a method on that companion object to the subclass itself.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Attribute</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">// find concreteAttributeClasses up here</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">import</span> <span class="nn">scala.reflect.runtime.universe</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">runtimeMirror</span> <span class="k">=</span> <span class="n">universe</span><span class="o">.</span><span class="n">runtimeMirror</span><span class="o">(</span><span class="n">getClass</span><span class="o">.</span><span class="n">getClassLoader</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">implicit</span> <span class="k">val</span> <span class="nc">NameClassMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Class</span><span class="o">[</span><span class="k">_</span> <span class="k">&lt;:</span> <span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]]]</span> <span class="k">=</span> <span class="o">(</span><span class="n">concreteAttributeClasses</span> <span class="n">map</span> <span class="o">{</span> <span class="n">klass</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">module</span> <span class="k">=</span> <span class="n">runtimeMirror</span><span class="o">.</span><span class="n">staticModule</span><span class="o">(</span><span class="n">klass</span><span class="o">.</span><span class="n">getName</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">val</span> <span class="n">companionObj</span> <span class="k">=</span> <span class="n">runtimeMirror</span><span class="o">.</span><span class="n">reflectModule</span><span class="o">(</span><span class="n">module</span><span class="o">).</span><span class="n">instance</span><span class="o">.</span><span class="n">asInstanceOf</span><span class="o">[</span><span class="kt">OrgNamed</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">companionObj</span><span class="o">.</span><span class="n">orgName</span> <span class="o">-&gt;</span> <span class="n">klass</span>
+</span><span class='line'>  <span class="o">}).</span><span class="n">toMap</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All of the companion objects must inherit the <code>OrgNamed</code> trait, so I can safely cast them and call <code>orgName</code> on each one.</p>
+
+<p>Why these reflection gymnastics? The resulting <code>NameClassMap</code> allowed me to take arbitrary incoming network messages which had an <code>orgName</code> matching the keys in my map, and dynamically instantiate an appropriate <code>Attribute</code> instance for them. Here&#8217;s the code to do that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">object</span> <span class="nc">Attribute</span> <span class="o">{</span>
+</span><span class='line'>  <span class="c1">// construct implicit NameClassMap up here</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="n">newFromName</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+</span><span class='line'>                 <span class="o">(</span><span class="k">implicit</span> <span class="n">nameClassMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Class</span><span class="o">[</span><span class="k">_</span> <span class="k">&lt;:</span> <span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]]])</span><span class="k">:</span> <span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">nameClassMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">klass</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="n">klass</span><span class="o">.</span><span class="n">getDeclaredConstructor</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">String</span><span class="o">]).</span><span class="n">newInstance</span><span class="o">(</span><span class="n">value</span><span class="o">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="nc">None</span> <span class="k">=&gt;</span>
+</span><span class='line'>        <span class="nc">UnknownAttribute</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">value</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The magic, of course, is the dynamic instantiation provided by <code>getDeclaredConstructor</code> and <code>newInstance</code>.</p>
+
+<p>I should note that aspects of this decrease the type safety of your code, and should really be used sparingly. In this particular case, the benefits outweighed the risks!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Finding concrete subtypes in Scala]]></title>
@@ -652,20 +729,6 @@ when you run your tests. You can also create it manually using
 	Just like to give a shout-out to a former project of mine that&#39;s available for public demo: <a href="http://whaledrop.com">whaledrop.com</a>. Whaledrop is a hosted Digital Asset Management system for individuals and small businesses, and it&#39;s pretty dang cool. Check it out!</p>
 <p>
 	EDIT: The team at Whaledrop has opened up the Whaledrop Asset Courier for public beta. You can use the Whaledrop Asset Courier to send very large files and private information securely by email. You can also track the status of your email delivery on the Whaledrop web page. I use it, you should too :-).</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[60cycleCMS 2.5.0 released!]]></title>
-    <link href="http://davidvg.com/2009/12/02/60cyclecms-2-5-0-released/"/>
-    <updated>2009-12-02T00:00:00-05:00</updated>
-    <id>http://davidvg.com/2009/12/02/60cyclecms-2-5-0-released</id>
-    <content type="html"><![CDATA[<p>
-	At long last I&#39;ve found some time to work on <a href="http://60cycle.net/source/60cycleCMS.php">60cycleCMS</a>, and version 2.5.0 is the result. A major change in 2.5.0 is the addition of a new visitor comment system. I&#39;ve integrated <a href="http://recaptcha.net">RECAPTCHA</a> and <a href="http://htmlpurifier.org">HTML Purifier</a> to thwart spammers and XSS, respectively. I&#39;ve also allowed for email notifications of new comments. Of course, the comment system is both optional and configurable, meaning you can enable or disable it and its features at will.</p>
-<p>
-	As always, you can see the latest version in action on this very website. I&#39;ve also notified the admins at <a href="http://php.opensourcecms.com/scripts/details.php?scriptid=337">opensourceCMS</a>, and hopefully a demo of the new version will be available soon.</p>
-<p>
-	Download the new version from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a> or <a href="http://sourceforge.net/projects/sixtycyclecms/">SourceForge</a>.</p>
 ]]></content>
   </entry>
   

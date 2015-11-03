@@ -9,8 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="So Jo and I moved to Toronto at the beginning of December, and things are going swimmingly. I&#8217;m still working for
-Spindance, but now from the &hellip;">
+  <meta name="description" content="Those of you living in a cave may not have heard that someone recently
+hacked GitHub to prove a point about default Rails mass-assignment settings. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,69 @@ Spindance, but now from the &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/03/07/reviewing-your-github-ssh-key/">Reviewing your GitHub SSH key</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-07T13:26:00-05:00" pubdate data-updated="true">Mar 7<span>th</span>, 2012</time>
+        
+         | <a href="/2012/03/07/reviewing-your-github-ssh-key/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Those of you living in a cave may not have heard that someone recently
+hacked GitHub to prove a point about default Rails mass-assignment settings.
+You can read all the gory details <a href="https://github.com/blog/1068-public-key-security-vulnerability-and-mitigation">here</a>
+and <a href="https://github.com/blog/1069-responsible-disclosure-policy">here</a>.</p>
+
+<p>At any rate, GitHub sent an email notifying everyone that they are performing
+an SSH key audit, and included a link to the audit page.</p>
+
+<p>The page shows the SSH key&#8217;s fingerprint, but neglects to explain what it is
+or how to check the fingerprint on your own system.  Here&#8217;s what you need to do:</p>
+
+<ul>
+<li>Locate your public SSH key, it&#8217;s likely at ~/.ssh/id_rsa.pub</li>
+<li>Run this command (or similar, depending on your system) to get the key fingerprint, replacing id_rsa.pub with the location of your public key:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> ssh-keygen -lf id_rsa.pub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>If the printed key fingerprint matches the fingerprint on GitHub, you&#8217;re good!  If not&#8230; follow their instructions and hope for the best :-P.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -209,66 +272,6 @@ excellent instructions <a href="http://www.petefreitag.com/item/665.cfm">here</a
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-28T00:00:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2011</time>
-        
-         | <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I use <a href="https://github.com/binarylogic/authlogic">Authlogic</a> to provide
-authentication for a couple Rails projects.  I also use <a href="https://github.com/thoughtbot/factory_girl">Factory Girl</a>
-as a fixtures replacement.</p>
-
-<p>When FG creates a User for you, a new UserSession automatically gets created.
-This is by virtue of Authlogic&#8217;s automatic session maintenance, which
-can be pretty handy.  However, in my tests I want complete control over
-the UserSession.  Just because I created a new user, doesn&#8217;t mean I want
-that user logged in.  In many cases, I <em>don&#8217;t</em> want the user to be
-logged in, and this behavior was causing my tests to fail.</p>
-
-<p>To work around this behaviour, I ended up adding this to my User factory:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">after_create</span> <span class="k">do</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">u</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">maintain_sessions</span> <span class="o">=</span> <span class="kp">false</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That quashed the autogenerated UserSession.  There might be a cleaner method somewhere, but so far this is doing the trick for me.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/3/">&larr; Older</a>
@@ -286,6 +289,10 @@ logged in, and this behavior was causing my tests to fail.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/11/02/dynamically-getting-a-scala-companion-object-reference/">Dynamically getting a Scala companion object reference</a>
+      </li>
+    
+      <li class="post">
         <a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a>
       </li>
     
@@ -299,10 +306,6 @@ logged in, and this behavior was causing my tests to fail.</p>
     
       <li class="post">
         <a href="/2012/01/26/new-city-new-site/">New city, new site!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
       </li>
     
   </ul>

@@ -9,9 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I&#8217;m an infrequent gamer, but occasionally I get bored enough to fire
-something up, generally an RTS of some variety. Today was a rainy
-Sunday, &hellip;">
+  <meta name="description" content="On my current project, I use an Ubuntu Server virtual machine to run MySQL and Rails. It makes it easy to keep my development environments for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +76,48 @@ Sunday, &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/04/04/using-a-virtualbox-host-only-interface-when-bridged-interface-is-unavailable/">Using a VirtualBox host-only interface when bridged interface is unavailable</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-04T00:00:00-04:00" pubdate data-updated="true">Apr 4<span>th</span>, 2011</time>
+        
+         | <a href="/2011/04/04/using-a-virtualbox-host-only-interface-when-bridged-interface-is-unavailable/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On my current project, I use an Ubuntu Server virtual machine to run MySQL and Rails.  It makes it easy to keep my development environments for conflicting projects separate&#8230; my previous project used a different version of both MySQL and Rails.  For Ruby and Rails, this problem can be solved with <a href="http://rvm.beginrescueend.com/">RVM</a>, but that&#8217;s another story.</p>
+
+<p>My Ubuntu VM has two network adapters, one bridged to eth0 on my host, and the second a host-only interface.  The idea here is that I still have network access to the VM when my wired connection on the host is down.  Imagine my suprise, however, when DHCP was failing on the host-only interface while the bridged network was down.  In theory, the host-only networking should work fine even if the host&#8217;s bridged interface is physically disconnected (I&#8217;m using wireless instead of my normal wired connection, so there&#8217;s nothing connected to my host&#8217;s Ethernet port).</p>
+
+<p>After mucking about for a bit, I discovered the secret to host-only harmony.  I had to turn off the VM, then in VirtualBox go to Settings -> Network, select the tab for my bridged adapter, click Advanced, and un-check the &#8220;Cable Connected&#8221; box.  When I booted the VM again, the host-only adapter was able to DHCP an address on the host-only network, and I could be productive again :-).</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -268,51 +308,6 @@ these steps together:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/03/11/60cycle-net-is-now-davidvg-com/">60cycle.net is now davidvg.com!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-11T00:00:00-05:00" pubdate data-updated="true">Mar 11<span>th</span>, 2011</time>
-        
-         | <a href="/2011/03/11/60cycle-net-is-now-davidvg-com/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	So, regular readers of this site (all two of them) may have noticed that 60cycle.net wasn&#39;t getting a whole lot of love lately. &nbsp;There&#39;s a couple reasons for that. &nbsp;Number one, Jo and I tied the knot back in June (huzzah!), and number two, I was busy working on davidvg.com.</p>
-<p>
-	Why a new site, you ask? &nbsp;Good question. &nbsp;I wrote 60cycle.net and 60cycleCMS back when I didn&#39;t know a whole lot about web development. &nbsp;It was cool to learn some PHP and MySQL, but it didn&#39;t teach me a lot about actual web development strategies (MVC patterns, for example). &nbsp;When my work compelled me to write a website, I jumped on the chance to learn Ruby on Rails, and I never looked back.</p>
-<p>
-	Having learned the Rails way of doing things, I felt pretty silly about 60cycleCMS. &nbsp;I toyed around with writing a new CMS in Rails, but, let&#39;s face it, why re-invent the wheel? &nbsp;Typo would do most of what I wanted. &nbsp;So, I installed Typo and started hacking. &nbsp;A few things annoyed me about Typo, and the iamrice theme, while being pretty darn awesome, wasn&#39;t exactly what I wanted.&nbsp;</p>
-<p>
-	davidvg.com is the result of my mods to Typo and iamrice. &nbsp;Now that I&#39;ve got the site running the way I like, hopefully the blog will see a little more action :-). &nbsp;Let me know if you find anything amiss!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/5/">&larr; Older</a>
@@ -330,6 +325,10 @@ these steps together:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/11/02/dynamically-getting-a-scala-companion-object-reference/">Dynamically getting a Scala companion object reference</a>
+      </li>
+    
+      <li class="post">
         <a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a>
       </li>
     
@@ -343,10 +342,6 @@ these steps together:</p>
     
       <li class="post">
         <a href="/2012/01/26/new-city-new-site/">New city, new site!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
       </li>
     
   </ul>

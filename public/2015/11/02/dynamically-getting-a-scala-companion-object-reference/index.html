@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>David van Geest</title>
+  <title>Dynamically getting a Scala companion object reference - David van Geest</title>
   <meta name="author" content="David van Geest">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidvg.com">
+  <link rel="canonical" href="http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,15 +74,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/2015/11/02/dynamically-getting-a-scala-companion-object-reference/">Dynamically getting a Scala companion object reference</a></h1>
+      <h1 class="entry-title">Dynamically getting a Scala companion object reference</h1>
     
     
       <p class="meta">
@@ -100,14 +97,14 @@
 
 <time datetime="2015-11-02T19:42:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2015</time>
         
-         | <a href="/2015/11/02/dynamically-getting-a-scala-companion-object-reference/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>In my last post, I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type <code>Class[T]</code>), I need a reference to its companion object.</p>
+<div class="entry-content"><p>In my last post, I talked about dynamically getting a list of concrete subclasses in Scala. Now suppose that for each of those subclasses (with type <code>Class[T]</code>), I need a reference to its companion object.</p>
 
 <p>This time, the standard Scala reflection API did exactly what I needed. The below code takes my list of subclasses, gets a reference to the companion object of each one, and then maps the result of a method on that companion object to the subclass itself.</p>
 
@@ -177,95 +174,16 @@
 
 <p>I should note that aspects of this decrease the type safety of your code, and should really be used sparingly. In this particular case, the benefits outweighed the risks!</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">David van Geest</span></span>
 
-<time datetime="2015-10-23T19:13:00-04:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2015</time>
-        
-         | <a href="/2015/10/23/finding-concrete-subtypes-in-scala/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>On my current project, which is written in Scala, I needed a way to dynamically find all of the concrete subclasses of a given class, found in a given package.</p>
-
-<p>While this is possible using the Scala Reflection API, <a href="https://issues.scala-lang.org/browse/SI-6573">this bug</a> did not give me confidence that it would work correctly. Instead, I turned to the library mentioned in the comments, namely Reflections, which is written in Java and can be found <a href="https://github.com/ronmamo/reflections">here</a>.</p>
-
-<p>Using this library made the task quite straightforward. In the code below, I&#8217;m finding all concrete subclasses of <code>Attribute[_]</code> found in the <code>com.example</code> package.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">java.lang.reflect.Modifier</span>
-</span><span class='line'><span class="k">import</span> <span class="nn">org.reflections.Reflections</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">object</span> <span class="nc">Attribute</span> <span class="o">{</span>
-</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">reflections</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Reflections</span><span class="o">(</span><span class="s">&quot;com.example&quot;</span><span class="o">)</span>
-</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">allAttributeClasses</span> <span class="k">=</span> <span class="n">reflections</span><span class="o">.</span><span class="n">getSubTypesOf</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]])</span>
-</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">concreteAttributeClasses</span> <span class="k">=</span> <span class="n">allAttributeClasses</span> <span class="n">filter</span> <span class="o">{</span> <span class="n">klass</span> <span class="k">=&gt;</span>
-</span><span class='line'>    <span class="o">!</span><span class="nc">Modifier</span><span class="o">.</span><span class="n">isAbstract</span><span class="o">(</span><span class="n">klass</span><span class="o">.</span><span class="n">getModifiers</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1">// do some useful stuff with the list of subclasses</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Note that I&#8217;m making use of the standard Java reflection API to check whether a class is concrete or not.</p>
-
-<p>In my next post I&#8217;ll talk about doing some interesting things with this list of subclasses!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -277,81 +195,38 @@
   
 
 
-<time datetime="2012-04-13T15:53:00-04:00" pubdate data-updated="true">Apr 13<span>th</span>, 2012</time>
-        
-         | <a href="/2012/04/13/removing-newlines-from-logging-events/#disqus_thread">Comments</a>
-        
-      </p>
+<time datetime="2015-11-02T19:42:00-05:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2015</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>I added the <a href="https://github.com/TwP/logging">Logging gem</a> to a project
-I&#8217;m working on, and so far I like it a lot.  It is modelled after
-<a href="http://logging.apache.org/log4j/">log4j</a>
-and, as such, allows you to send logs to syslog (our main usage for it).</p>
-
-<p>One issue that I&#8217;ve run into with using syslog(-ng) as a Rails logger is
-that Rails tends to spit out multi-line log events.  Unless you have a
-very new version of syslog-ng, this may cause syslog to interpret each
-new line as a new event.  Unfortunately subsequent lines get written
-with a blank program identification, which can cause filtering rules in
-syslog-ng to break.</p>
-
-<p>My solution to this was to monkeypatch the <code>Logging::LogEvent</code> with an
-Around Alias.  This causes the <code>data</code> accessor to return a string with
-the newlines substituted with a different delimiter, <code>&lt;&lt;</code> in this
-case.  I added the Around Alias to the end of the <code>config/logging.rb</code>
-file:</p>
-
-<figure class='code'><figcaption><span>config/logging.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># Other config here...</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># This is a hack to remove new lines from our log data</span>
-</span><span class='line'><span class="k">module</span> <span class="nn">Logging</span>
-</span><span class='line'>  <span class="k">class</span> <span class="nc">LogEvent</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">data_with_stripped_newlines</span>
-</span><span class='line'>      <span class="nb">self</span><span class="o">.</span><span class="n">data_without_stripped_newlines</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &gt;&gt; &quot;</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">alias_method_chain</span> <span class="ss">:data</span><span class="p">,</span> <span class="ss">:stripped_newlines</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>So far it&#8217;s working quite nicely.  Any better ways of doing it?  Let me
-know!</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference/" data-via="" data-counturl="http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2015/10/23/finding-concrete-subtypes-in-scala/" title="Previous Post: Finding concrete subtypes in Scala">&laquo; Finding concrete subtypes in Scala</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -392,6 +267,7 @@ know!</p>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -406,7 +282,10 @@ know!</p>
       var disqus_shortname = 'davidvg';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference/';
+        var disqus_url = 'http://davidvg.com/2015/11/02/dynamically-getting-a-scala-companion-object-reference/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

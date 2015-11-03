@@ -9,7 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="The webmaster over at aegamestudios.com recently started using 60cycleCMS to power the blog portion of his site. The site looks great and is a good &hellip;">
+  <meta name="description" content="I know, two posts about 60cycleCMS in one day :-). Supporting the webmaster over at aegamestudios while he was installing 60cycleCMS motivated me to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2010/03/27/60cyclecms-2-5-1-released/">60cycleCMS 2.5.1 released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-27T00:00:00-04:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
+        
+         | <a href="/2010/03/27/60cyclecms-2-5-1-released/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	I know, two posts about 60cycleCMS in one day :-). Supporting the webmaster over at <a href="http://www.aegamestudios.com/blog.php">aegamestudios</a> while he was installing 60cycleCMS motivated me to put together another release.</p>
+<p>
+	60cycleCMS 2.5.1, ironically, considering my previous post, does address a potential security vulnerability. While previously I was using a somewhat lame white-list filter to filter input from the URL &quot;post&quot; parameter, I&#39;ve switched to using PHP&#39;s real_escape_string() from mysqli. While I&#39;m not sure of the exact method, I suspect my previous white-list filter could have been bypassed, and an attacker could have done some damage with SQL injection. Using real_escape_string() should completely mitigate this potential vulnerability.</p>
+<p>
+	This release also includes a custom negative CAPTCHA (in addition to ReCAPTCHA) to protect against spammers with a bunch of human CAPTCHA breakers from some disadvantaged country. Lastly it includes CSS stylesheet listing all the custom classes used by 60cycleCMS, for easier customization (thanks to Madison at aegamestudios.com for that suggestion).</p>
+<p>
+	As always, you can download the latest zip from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a>, or checkout the latest code from <a href="http://svn.60cycle.net/60cycleCMS">svn</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -160,44 +205,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2010/02/02/wedding-website/">Wedding website!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-02-02T00:00:00-05:00" pubdate data-updated="true">Feb 2<span>nd</span>, 2010</time>
-        
-         | <a href="/2010/02/02/wedding-website/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">I&#8217;ve hinted at another website in the works in previous posts, and it&#8217;s finally gracing the interwebs: davidandjo.org. All the info you could ever want to know about our wedding, and then some. No wedding crashers please :-).
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/7/">&larr; Older</a>
@@ -215,6 +222,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/11/02/dynamically-getting-a-scala-companion-object-reference/">Dynamically getting a Scala companion object reference</a>
+      </li>
+    
+      <li class="post">
         <a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a>
       </li>
     
@@ -228,10 +239,6 @@
     
       <li class="post">
         <a href="/2012/01/26/new-city-new-site/">New city, new site!</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
       </li>
     
   </ul>
