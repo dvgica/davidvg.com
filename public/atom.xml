@@ -4,7 +4,7 @@
   <title><![CDATA[David van Geest]]></title>
   <link href="http://davidvg.com/atom.xml" rel="self"/>
   <link href="http://davidvg.com/"/>
-  <updated>2015-11-02T15:29:44-05:00</updated>
+  <updated>2015-11-02T19:35:45-05:00</updated>
   <id>http://davidvg.com/</id>
   <author>
     <name><![CDATA[David van Geest]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Finding concrete subtypes in Scala]]></title>
+    <link href="http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala/"/>
+    <updated>2015-10-23T19:13:00-04:00</updated>
+    <id>http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala</id>
+    <content type="html"><![CDATA[<p>On my current project, which is written in Scala, I needed a way to dynamically find all of the concrete subclasses of a given class, found in a given package.</p>
+
+<p>While this is possible using the Scala Reflection API, <a href="https://issues.scala-lang.org/browse/SI-6573">this bug</a> did not give me confidence that it would work correctly. Instead, I turned to the library mentioned in the comments, namely Reflections, which is written in Java and can be found <a href="https://github.com/ronmamo/reflections">here</a>.</p>
+
+<p>Using this library made the task quite straightforward. In the code below, I&#8217;m finding all concrete subclasses of <code>Attribute[_]</code> found in the <code>com.example</code> package.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">java.lang.reflect.Modifier</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">org.reflections.Reflections</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Attribute</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">reflections</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Reflections</span><span class="o">(</span><span class="s">&quot;com.example&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">allAttributeClasses</span> <span class="k">=</span> <span class="n">reflections</span><span class="o">.</span><span class="n">getSubTypesOf</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]])</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">concreteAttributeClasses</span> <span class="k">=</span> <span class="n">allAttributeClasses</span> <span class="n">filter</span> <span class="o">{</span> <span class="n">klass</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="o">!</span><span class="nc">Modifier</span><span class="o">.</span><span class="n">isAbstract</span><span class="o">(</span><span class="n">klass</span><span class="o">.</span><span class="n">getModifiers</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// do some useful stuff with the list of subclasses</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I&#8217;m making use of the standard Java reflection API to check whether a class is concrete or not.</p>
+
+<p>In my next post I&#8217;ll talk about doing some interesting things with this list of subclasses!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Removing newlines from Logging events]]></title>
@@ -622,20 +666,6 @@ when you run your tests. You can also create it manually using
 	As always, you can see the latest version in action on this very website. I&#39;ve also notified the admins at <a href="http://php.opensourcecms.com/scripts/details.php?scriptid=337">opensourceCMS</a>, and hopefully a demo of the new version will be available soon.</p>
 <p>
 	Download the new version from the <a href="http://60cycle.net/source/60cycleCMS.php">project page</a> or <a href="http://sourceforge.net/projects/sixtycyclecms/">SourceForge</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dropbox referral link]]></title>
-    <link href="http://davidvg.com/2009/11/26/dropbox-referral-link/"/>
-    <updated>2009-11-26T00:00:00-05:00</updated>
-    <id>http://davidvg.com/2009/11/26/dropbox-referral-link</id>
-    <content type="html"><![CDATA[<p>
-	<a href="http://www.dropbox.com">Dropbox</a> has been around for a while, but I hadn&#39;t really been interested in it until my fiancee&#39;s laptop started making strange noises. As a result she&#39;s using my desktop to do some of her work, as well as her (possibly dying) laptop. Not to mention she&#39;s constantly emailing herself files to access them on school computers. So, a backup and sync solution seems to be in order.</p>
-<p>
-	Having set Dropbox up for both of us, I&#39;m really impressed so far, especially since it works seamlessly with Linux, my platform of choice. Ars Technica has a good <a href="http://arstechnica.com/software/news/2008/09/how-dropbox-ended-my-search-for-seamless-sync-on-linux.ars">review</a> of the service, and many others have jotted down their thoughts, so I&#39;m not going to go any further than saying I like it.</p>
-<p>
-	If you&#39;re interested in using Dropbox, use this referral link: <a href="https://www.dropbox.com/referrals/NTMyMDkwNDc5">https://www.dropbox.com/referrals/NTMyMDkwNDc5</a>, and we&#39;ll both get an extra 250 MB of storage!</p>
 ]]></content>
   </entry>
   

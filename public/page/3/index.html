@@ -9,8 +9,8 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I&#8217;m constantly forgetting how to enable profiling and turn off query
-caching in MySQL. So for my own benefit, and possibly yours, here&#8217;s &hellip;">
+  <meta name="description" content="Ran across a strange gotcha while working in Rails 3.0 today, having to
+do with the :only option to the to_json method. Let&#8217;s say you have a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,67 @@ caching in MySQL. So for my own benefit, and possibly yours, here&#8217;s &helli
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/">Excluding all attributes in options for to_json</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-18T00:00:00-04:00" pubdate data-updated="true">Oct 18<span>th</span>, 2011</time>
+        
+         | <a href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ran across a strange gotcha while working in Rails 3.0 today, having to
+do with the <code>:only</code> option to the <code>to_json</code> method.</p>
+
+<p>Let&#8217;s say you have a Widget on which you call <code>to_json</code>.  You don&#8217;t want
+<em>any</em> of the widget&#8217;s attributes to appear in the JSON (maybe you only
+want some method results).  Normally, one would expect this to do the trick:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">{</span><span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[]</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Strangely, this didn&#8217;t work.  I found I needed to put a nil in the empty
+<code>:only</code> array, like so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">{</span><span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="kp">nil</span><span class="o">]</span><span class="p">,</span> <span class="ss">:methods</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:foo</span><span class="p">,</span> <span class="ss">:bar</span><span class="o">]</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>for everything to work as expected.</p>
+
+<p>This might have something to do with the fact that I&#8217;m using the json
+gem, but I haven&#8217;t had the time to dive into that.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -242,155 +303,6 @@ took 0.001665 seconds was the <code>Sorting result</code> operation, not the
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/03/20/installing-the-starcraft-2-demo-on-linux-mint/">Installing the StarCraft 2 Demo on Linux Mint</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-20T00:00:00-04:00" pubdate data-updated="true">Mar 20<span>th</span>, 2011</time>
-        
-         | <a href="/2011/03/20/installing-the-starcraft-2-demo-on-linux-mint/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;m an infrequent gamer, but occasionally I get bored enough to fire
-something up, generally an RTS of some variety. Today was a rainy
-Sunday, so I figured I would give StarCraft II a try. I don&#8217;t own the
-game, and didn&#8217;t intend to buy it without trying it out on Linux, so I
-installed the demo using <a href="http://www.winehq.org/">Wine</a>.</p>
-
-<p>There&#8217;s a few walk-throughs on the web that I followed to get this
-going, but none of them specifically addressed the demo. If you&#8217;re
-trying to install the full version of the game, I suspect that
-<a href="http://www.playonlinux.com/">PlayOnLinux</a> would be easier (see the
-referenced walkthroughs for instructions).  But since PlayOnLinux
-doesn&#8217;t support the demo, here&#8217;s what I did.  These instructions are for
-Linux Mint, but they should work fine on Ubuntu without modification, or
-other distros with a few small changes.</p>
-
-<ul>
-<li><p>To get the audio working correctly, I had to install wine1.3,
-compiled with PulseAudio support (instead of wine1.2 which is in the
-Mint 9 repositories).  I found a PPA for that <a href="https://launchpad.net/~c-korn/+archive/ppa">here</a>.
-If you want, you can just download and install the .deb instead of
-adding the whole PPA.</p></li>
-<li><p>Get the latest winetricks script:</p></li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://winezeug.googlecode.com/svn/trunk/winetricks
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Make it executable, and install some extras not included with Wine.
-I&#8217;m not sure if all of these are needed, but these installed without
-error for me:</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>chmod +x winetricks
-</span><span class='line'>./winetricks droid fontfix fontsmooth-rgb vcrun2005 allfonts d3dx9 win7
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Some walk-throughs suggest installing gecko for wine, I did that the
-following way:</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget  http://winezeug.googlecode.com/svn/trunk/install-gecko.sh
-</span><span class='line'>chmod +x install-gecko.sh
-</span><span class='line'>sudo ./install-gecko.sh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Configure Wine to use PulseAudio, if necessary:</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>winecfg
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>   Then go to the &#8216;Audio&#8217; tab and select the PulseAudio Driver in the
-   Sound Drivers tree.</p>
-
-<ul>
-<li><p>Configure Wine to disable mmdevapi.  In the Libraries tab, under
-Existing Overrides, you may have mmdevapi listed.  Select it, click
-Edit, and choose Disabled.  If it&#8217;s not in the list, some people
-recommend adding it by finding mmdevapi in the above drop-down and
-clicking Add, then disabling it as before.</p></li>
-<li><p>Download the demo downloader from
-<a href="https://us.battle.net/account/sc2-demo.html">here</a>.</p></li>
-<li><p>Run the demo downloader using wine:</p></li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>chmod +x SC2-WingsOfLibertyDemo-enUS-downloader.exe
-</span><span class='line'>wine SC2-WingsOfLibertyDemo-enUS-downloader.exe
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li><p>The download is pretty big.  Go play outside :-).</p></li>
-<li><p>When the downloader is complete, it will give you the option to
-install the demo.  Go ahead and do that.</p></li>
-<li><p>The demo installer adds a Desktop icon, and an icon in your Wine
-menu.  At this point, you are hopefully good to go.  Performance
-under Wine is not as good as on Windows, so you may have to tweak
-your graphics settings.</p></li>
-</ul>
-
-
-<p>The demo was enjoyable, if a little tame.  I might consider buying the
-game in the unlikely event that I suddenly find myself with a lot of
-free time :-).  For reference, I used the following two sites to put
-these steps together:</p>
-
-<ul>
-<li><a href="http://jeffhoogland.blogspot.com/2010/07/howto-starcraft-2-on-linux-with-wine.html">http://jeffhoogland.blogspot.com/2010/07/howto-starcraft-2-on-linux-with-wine.html</a></li>
-<li><a href="http://www.retrohive.com/2010/08/20/play-starcraft-ii-linux/">http://www.retrohive.com/2010/08/20/play-starcraft-ii-linux/</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/4/">&larr; Older</a>
@@ -408,6 +320,10 @@ these steps together:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a>
       </li>
     
@@ -421,10 +337,6 @@ these steps together:</p>
     
       <li class="post">
         <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
       </li>
     
   </ul>

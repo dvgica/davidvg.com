@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hacking session maintenance with Authlogic and Factory Girl - David van Geest</title>
+  <title>Finding concrete subtypes in Scala - David van Geest</title>
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I use Authlogic to provide
-authentication for a couple Rails projects. I also use Factory Girl
-as a fixtures replacement. When FG creates a User for &hellip;">
+  <meta name="description" content="On my current project, which is written in Scala, I needed a way to dynamically find all of the concrete subclasses of a given class, found in a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ as a fixtures replacement. When FG creates a User for &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl">
+  <link rel="canonical" href="http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +79,7 @@ as a fixtures replacement. When FG creates a User for &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Hacking session maintenance with Authlogic and Factory Girl</h1>
+      <h1 class="entry-title">Finding concrete subtypes in Scala</h1>
     
     
       <p class="meta">
@@ -97,7 +95,7 @@ as a fixtures replacement. When FG creates a User for &hellip;">
   
 
 
-<time datetime="2011-10-28T00:00:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2011</time>
+<time datetime="2015-10-23T19:13:00-04:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2015</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -106,29 +104,42 @@ as a fixtures replacement. When FG creates a User for &hellip;">
   </header>
 
 
-<div class="entry-content"><p>I use <a href="https://github.com/binarylogic/authlogic">Authlogic</a> to provide
-authentication for a couple Rails projects.  I also use <a href="https://github.com/thoughtbot/factory_girl">Factory Girl</a>
-as a fixtures replacement.</p>
+<div class="entry-content"><p>On my current project, which is written in Scala, I needed a way to dynamically find all of the concrete subclasses of a given class, found in a given package.</p>
 
-<p>When FG creates a User for you, a new UserSession automatically gets created.
-This is by virtue of Authlogic&#8217;s automatic session maintenance, which
-can be pretty handy.  However, in my tests I want complete control over
-the UserSession.  Just because I created a new user, doesn&#8217;t mean I want
-that user logged in.  In many cases, I <em>don&#8217;t</em> want the user to be
-logged in, and this behavior was causing my tests to fail.</p>
+<p>While this is possible using the Scala Reflection API, <a href="https://issues.scala-lang.org/browse/SI-6573">this bug</a> did not give me confidence that it would work correctly. Instead, I turned to the library mentioned in the comments, namely Reflections, which is written in Java and can be found <a href="https://github.com/ronmamo/reflections">here</a>.</p>
 
-<p>To work around this behaviour, I ended up adding this to my User factory:</p>
+<p>Using this library made the task quite straightforward. In the code below, I&#8217;m finding all concrete subclasses of <code>Attribute[_]</code> found in the <code>com.example</code> package.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">after_create</span> <span class="k">do</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">u</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">maintain_sessions</span> <span class="o">=</span> <span class="kp">false</span>
-</span><span class='line'><span class="k">end</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">java.lang.reflect.Modifier</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">org.reflections.Reflections</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Attribute</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">reflections</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Reflections</span><span class="o">(</span><span class="s">&quot;com.example&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">allAttributeClasses</span> <span class="k">=</span> <span class="n">reflections</span><span class="o">.</span><span class="n">getSubTypesOf</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]])</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">concreteAttributeClasses</span> <span class="k">=</span> <span class="n">allAttributeClasses</span> <span class="n">filter</span> <span class="o">{</span> <span class="n">klass</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="o">!</span><span class="nc">Modifier</span><span class="o">.</span><span class="n">isAbstract</span><span class="o">(</span><span class="n">klass</span><span class="o">.</span><span class="n">getModifiers</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// do some useful stuff with the list of subclasses</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>That quashed the autogenerated UserSession.  There might be a cleaner method somewhere, but so far this is doing the trick for me.</p>
+<p>Note that I&#8217;m making use of the standard Java reflection API to check whether a class is concrete or not.</p>
+
+<p>In my next post I&#8217;ll talk about doing some interesting things with this list of subclasses!</p>
 </div>
 
 
@@ -151,7 +162,7 @@ logged in, and this behavior was causing my tests to fail.</p>
   
 
 
-<time datetime="2011-10-28T00:00:00-04:00" pubdate data-updated="true">Oct 28<span>th</span>, 2011</time>
+<time datetime="2015-10-23T19:13:00-04:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2015</time>
       
 
 
@@ -159,7 +170,7 @@ logged in, and this behavior was causing my tests to fail.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/" data-via="" data-counturl="http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala/" data-via="" data-counturl="http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala/" >Tweet</a>
   
   
   
@@ -168,10 +179,8 @@ logged in, and this behavior was causing my tests to fail.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2011/10/18/excluding-all-attributes-in-options-for-to_json/" title="Previous Post: Excluding all attributes in options for to_json">&laquo; Excluding all attributes in options for to_json</a>
+        <a class="basic-alignment left" href="/2012/04/13/removing-newlines-from-logging-events/" title="Previous Post: Removing newlines from Logging events">&laquo; Removing newlines from Logging events</a>
       
-      
-        <a class="basic-alignment right" href="/2011/12/07/converting-a-git-repo-to-svn/" title="next Post: Converting a Git repo to SVN">Converting a Git repo to SVN &raquo;</a>
       
     </p>
   </footer>
@@ -241,8 +250,8 @@ logged in, and this behavior was causing my tests to fail.</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/';
-        var disqus_url = 'http://davidvg.com/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/';
+        var disqus_identifier = 'http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala/';
+        var disqus_url = 'http://davidvg.com/2015/10/23/finding-concrete-subtypes-in-scala/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -9,10 +9,7 @@
   <meta name="author" content="David van Geest">
 
   
-  <meta name="description" content="I added the Logging gem to a project
-I&#8217;m working on, and so far I like it a lot. It is modelled after
-log4j
-and, as such, allows you to send &hellip;">
+  <meta name="description" content="On my current project, which is written in Scala, I needed a way to dynamically find all of the concrete subclasses of a given class, found in a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +76,79 @@ and, as such, allows you to send &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-23T19:13:00-04:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2015</time>
+        
+         | <a href="/2015/10/23/finding-concrete-subtypes-in-scala/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On my current project, which is written in Scala, I needed a way to dynamically find all of the concrete subclasses of a given class, found in a given package.</p>
+
+<p>While this is possible using the Scala Reflection API, <a href="https://issues.scala-lang.org/browse/SI-6573">this bug</a> did not give me confidence that it would work correctly. Instead, I turned to the library mentioned in the comments, namely Reflections, which is written in Java and can be found <a href="https://github.com/ronmamo/reflections">here</a>.</p>
+
+<p>Using this library made the task quite straightforward. In the code below, I&#8217;m finding all concrete subclasses of <code>Attribute[_]</code> found in the <code>com.example</code> package.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">java.lang.reflect.Modifier</span>
+</span><span class='line'><span class="k">import</span> <span class="nn">org.reflections.Reflections</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Attribute</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">reflections</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Reflections</span><span class="o">(</span><span class="s">&quot;com.example&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">allAttributeClasses</span> <span class="k">=</span> <span class="n">reflections</span><span class="o">.</span><span class="n">getSubTypesOf</span><span class="o">(</span><span class="n">classOf</span><span class="o">[</span><span class="kt">Attribute</span><span class="o">[</span><span class="k">_</span><span class="o">]])</span>
+</span><span class='line'>  <span class="k">private</span> <span class="k">val</span> <span class="n">concreteAttributeClasses</span> <span class="k">=</span> <span class="n">allAttributeClasses</span> <span class="n">filter</span> <span class="o">{</span> <span class="n">klass</span> <span class="k">=&gt;</span>
+</span><span class='line'>    <span class="o">!</span><span class="nc">Modifier</span><span class="o">.</span><span class="n">isAbstract</span><span class="o">(</span><span class="n">klass</span><span class="o">.</span><span class="n">getModifiers</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// do some useful stuff with the list of subclasses</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that I&#8217;m making use of the standard Java reflection API to check whether a class is concrete or not.</p>
+
+<p>In my next post I&#8217;ll talk about doing some interesting things with this list of subclasses!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -231,64 +301,6 @@ or how to check the fingerprint on your own system.  Here&#8217;s what you need 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/01/26/new-city-new-site/">New city, new site!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-26T15:55:00-05:00" pubdate data-updated="true">Jan 26<span>th</span>, 2012</time>
-        
-         | <a href="/2012/01/26/new-city-new-site/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>So Jo and I moved to Toronto at the beginning of December, and things are going swimmingly.  I&#8217;m still working for
-<a href="http://www.spindance.com">Spindance</a>, but now from the comfort of our home study.</p>
-
-<p>Once things settled down a little, I got to work revamping davidvg.com.  Astute readers might note that I did the same thing last year,
-<a href="http://davidvg.com/2011/03/11/60cycle-net-is-now-davidvg-com/">moving from 60cycleCMS to Typo</a>, and ask why I&#8217;m changing it up again.</p>
-
-<p>One of the bigger problems was trying to host a full-blown Rails site on Dreamhost.  I like Dreamhost for the most part, but they&#8217;re really
-not set up for Rails sites.  I sporadically had random application crashes, and the site was really slow at times.  Installing the right gems
-was downright painful, although I imagine using Bundler would mitigate that considerably (I haven&#8217;t actually tried it).
-What I really wanted to do was move davidvg.com to <a href="http://www.heroku.com">Heroku</a>.  I had previously moved <a href="http://pvanreenen.com">pvanreenen.com</a>
-there (as well as porting it from PHP to Sinatra), and it was a very pleasent experience.</p>
-
-<p>Typo is good, but it was really starting to bug me.  It&#8217;s weighed down by a lot of legacy code (although they&#8217;re working on that),
-and I kept finding bugs that seemed to be un-squashable because of the huge and complex codebase.  There were some missing or non-functional features too,
-like decent syntax highlighting and a comments system that played well with others.  That said, I was using an older version,
-and I&#8217;m sure the newer versions are a lot better, but the thought of trying to upgrade Typo and merge my changes was making me ill.</p>
-
-<p>A little bit of Googling revealed <a href="http://octopress.org">Octopress</a>.  It&#8217;s a static site generator based on <a href="https://github.com/mojombo/jekyll">Jekyll</a> that uses a lot of my favourite tools,
-like Ruby and <a href="http://www.sinatrarb.com/">Sinatra</a>.  It had all the features I wanted, it was dead-easy to use, and it&#8217;s a great fit for Heroku.  I was hooked pretty quickly.</p>
-
-<p>So, welcome to the new Heroku-hosted, Octopress-baked version of davidvg.com.  Do let me know if you see any rough edges!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/2/">&larr; Older</a>
@@ -304,6 +316,10 @@ like Ruby and <a href="http://www.sinatrarb.com/">Sinatra</a>.  It had all the f
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2015/10/23/finding-concrete-subtypes-in-scala/">Finding concrete subtypes in Scala</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/04/13/removing-newlines-from-logging-events/">Removing newlines from Logging events</a>
       </li>
     
@@ -317,10 +333,6 @@ like Ruby and <a href="http://www.sinatrarb.com/">Sinatra</a>.  It had all the f
     
       <li class="post">
         <a href="/2011/12/07/converting-a-git-repo-to-svn/">Converting a Git repo to SVN</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/28/hacking-session-maintenance-with-authlogic-and-factory-girl/">Hacking session maintenance with Authlogic and Factory Girl</a>
       </li>
     
   </ul>
